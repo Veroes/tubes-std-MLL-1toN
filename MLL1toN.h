@@ -50,4 +50,16 @@ void deleteChild(listChild &LC, infoChild data);
 //  create delete first, after, and last
 void deleteParentAndChild(listParent &LP, listChild &LC, adrParent dataP, adrChild dataC);
 
+//----------------------------------------------------------
+// count child from specific parent
+int countChild (listParent LP, infoParent data);
+
+// connecting parent to child
+// kayanya ini butuh prosedur findChild juga (?)
+void connectingParentToChild (listParent &LP, listChild LC, infoParent dataP, infoChild dataC);
+
+// delete child from a specific parent
+// ini hapus child dari list child? atau cuma hapus hubungan parent ke child???
+void deleteChildfromParent (listParent &LP, infoParent dataP, infoChild dataC);
+
 #endif // MLL1TON_H_INCLUED
