@@ -43,6 +43,7 @@ void showParent(listParent LP);
 void showAll(listParent LP);
 //  find parent and child
 adrParent findParent(listParent LP, infoParent data);
+adrChild findClid(listChild LC, infoChild data);
 adrChild findChildInParent(listParent LP, infoChild data); // mencari data child pada parent
 // delete parent and child
 void deleteParent(listParent &LP, infoParent data);
@@ -55,7 +56,6 @@ void deleteParentAndChild(listParent &LP, listChild &LC, adrParent dataP, adrChi
 int countChild (listParent LP, infoParent data);
 
 // connecting parent to child
-// kayanya ini butuh prosedur findChild juga (?)
 void connectingParentToChild (listParent &LP, listChild LC, infoParent dataP, infoChild dataC);
 
 // delete child from a specific parent
