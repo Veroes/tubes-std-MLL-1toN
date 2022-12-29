@@ -2,64 +2,132 @@
 #define MLL1TON_H_INCLUDED
 #include <bits\stdc++.h>
 using namespace std;
-#define next(P) P->next
-#define info(P) P->info
+#define nextCustomer(P) P->nextCustomer
+#define nextCredit(P) P->nextCredit
+#define data(P) P->data
 #define child(P) P->child
 #define first(L) ((L).first)
-struct infoParent {
-    /**/
+
+// Credit Abstract Data Type [single linked list]
+struct dataCredit {
+    string creditName, accountNumber; 
 };
-struct infoChild {
-    /**/
+typedef struct elmCredit *adrCredit;
+struct elmCredit {
+    dataCredit data;
+    adrCredit nextCredit;
+    adrCustomer child;
 };
-typedef struct elmParent *adrParent;
-typedef struct elmChild *adrChild;
-struct elmParent {
-    infoParent info;
-    adrParent next;
-    adrChild child;
+
+// Customer Abstract Data Type [single circular linked list]
+struct dataCustomer {
+    string name, gender, creditName;
+    int age;
 };
-struct elmChild {
-    infoChild info;
-    adrChild next;
+typedef struct elmCustomer *adrCustomer;
+struct elmCustomer {
+    dataCustomer data;
+    adrCustomer nextCredit;
 };
-struct listParent {
-    adrParent first;
+
+// Lists Abstract Data Type
+struct listCredit {
+    adrCredit first;
 };
-struct listChild {
-    adrChild first;
+struct listCustomer {
+    adrCustomer first;
 };
 
 // create lists and elements
-void createListParent(listParent &LP);
-void createListChild(listChild &LC);
-void createElementParent(listParent &LP, infoParent data);
-void creatElementChild(listChild &LC, infoChild data);
-// insert data to lists
-void insertLastParent(listParent &LP, adrParent P);
-void insertLastChild(listChild &LC, adrChild C);
-// show data
-void showParent(listParent LP);
-void showAll(listParent LP);
-//  find parent and child
-adrParent findParent(listParent LP, infoParent data);
-adrChild findClid(listChild LC, infoChild data);
-adrChild findChildInParent(listParent LP, infoChild data); // mencari data child pada parent
-// delete parent and child
-void deleteParent(listParent &LP, infoParent data);
-void deleteChild(listChild &LC, infoChild data);
-//  create delete first, after, and last
-void deleteParentAndChild(listParent &LP, listChild &LC, adrParent dataP, adrChild dataC);
+// credit
+void createListCredit(listCredit &Credits);
+void createElementCredit(listCredit &Credits, dataCredit data);
+// customer
+void createlistCustomer(listCustomer &Customers);
+void creatElementCustomer(listCustomer &Customers, dataCustomer data);
 
+// insert data to lists
+void insertLastCredit(listCredit &Credits, adrCredit credP);
+// menambakan customer baru
+void insertLastCustomer(listCustomer &Customers, adrCustomer custP); // (1)
+
+
+// show customer X data [name, age, gender, creditName]
+// menampilkan data customer X
+void showCustomerData(listCustomer &Customers, dataCustomer cust); // (2)
+
+
+// delete customer
+// menghapus customer tertentu
+void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer cust); // (3)
+
+
+// find customer
+// mencari customer X
+adrCustomer getCustomer(listCustomer Customers, dataCustomer cust); // (4)
+
+
+// add new credit to customer X
+// menambahkan kartu kredit dari customer X
+void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred); // (5)
+
+
+// delete credit from customer X
+// menghapus kartu kredit dari customer X
+void deleteCreditInCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred); // (6)
+
+
+// show all credits from customer x
+// menampilkan seluruh karut kredit dari customer X
+void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustomer cust); // (7)
+
+
+// find credit from customer
+// mencari kartu kredit Y dari customer X
+adrCredit getCreditInCustomer(listCredit Credits, dataCredit cred, dataCustomer cust); // (8)
+
+
+// connect credit to customer
+// membuat relasi antara customer X dan kartu kredit Y
+void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred, dataCustomer cust); // (9)
+
+
+// delete connection betweeen credit and customer
+// menghapus relasi antara customer X dan kartu kredit Y
+void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred, dataCustomer cust); // (10)
+
+
+// highest credit cards owner
+// menampilkan customer yang memiliki jumlah kartu kredit yang paling banyak dan menampilkan kartu kredit tersebut
+void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers, dataCustomer cust); // (11)
+
+
+// find customer name from the credit cards identity
+// Mencari nama customer dari kartu kredit Y 
+adrCustomer getCustomerFromCredit(listCredit Credits, dataCredit cred); // (12)
+
+
+// extra function and procedure
+// credit delete
+void deleteFirstCredit(listCredit &Credits, adrCredit credP);
+void deleteAfterCredit(listCredit &Credits, adrCredit credP);
+void deleteLastCredit(listCredit &Credits, adrCredit credP);
+// customer delete
+void deleteFirstCustomer(listCustomer &Customers, adrCustomer custP);
+void deleteAfterCustomer(listCustomer &Customers, adrCustomer custP);
+void deleteLastCustomer(listCustomer &Customers, adrCustomer custP);
+
+
+#endif // MLL1TON_H_INCLUED
+/* placeholder
 //----------------------------------------------------------
 // count child from specific parent
-int countChild (listParent LP, infoParent data);
+int countChild (listCredit&Credits, dataCredit data);
 
 // connecting parent to child
-void connectingParentToChild (listParent &LP, listChild LC, infoParent dataP, infoChild dataC);
+void connectingParentToChild (listCredit &Credits, listCustomer Customers, dataCredit dataP, data dataC);
 
 // delete child from a specific parent
 // ini hapus child dari list child? atau cuma hapus hubungan parent ke child???
-void deleteChildfromParent (listParent &LP, infoParent dataP, infoChild dataC);
-
-#endif // MLL1TON_H_INCLUED
+void deleteChildfromParent (listCredit &Credits, dataCredit dataP, data dataC);
+*/
