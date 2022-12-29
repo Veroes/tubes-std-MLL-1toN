@@ -5,32 +5,30 @@ using namespace std;
 #define nextCustomer(P) P->nextCustomer
 #define nextCredit(P) P->nextCredit
 #define data(P) P->data
-#define child(P) P->child
 #define first(L) ((L).first)
 
-// Credit Abstract Data Type [single linked list]
+// Credit and Customer infotype
 struct dataCredit {
     string creditName, creditID; 
 };
-typedef struct elmCredit *adrCredit;
-struct elmCredit {
-    dataCredit data;
-    adrCredit nextCredit;
-    adrCustomer child;
-};
-
-// Customer Abstract Data Type [single circular linked list]
 struct dataCustomer {
     string name, gender, creditID;
     int age;
 };
+// Credit and Customer pointers
+typedef struct elmCredit *adrCredit;
 typedef struct elmCustomer *adrCustomer;
+// Credit and Customer type
+struct elmCredit {
+    dataCredit data;
+    adrCredit nextCredit;
+    adrCustomer nextCustomer;
+};
 struct elmCustomer {
     dataCustomer data;
     adrCustomer nextCustomer;
 };
-
-// Lists Abstract Data Type
+// Lists 
 struct listCredit {
     adrCredit first;
 };
