@@ -10,7 +10,7 @@ using namespace std;
 
 // Credit Abstract Data Type [single linked list]
 struct dataCredit {
-    string creditName, accountNumber; 
+    string creditName, creditID; 
 };
 typedef struct elmCredit *adrCredit;
 struct elmCredit {
@@ -21,13 +21,13 @@ struct elmCredit {
 
 // Customer Abstract Data Type [single circular linked list]
 struct dataCustomer {
-    string name, gender, creditName;
+    string name, gender, creditID;
     int age;
 };
 typedef struct elmCustomer *adrCustomer;
 struct elmCustomer {
     dataCustomer data;
-    adrCustomer nextCredit;
+    adrCustomer nextCustomer;
 };
 
 // Lists Abstract Data Type
@@ -45,6 +45,7 @@ void createElementCredit(listCredit &Credits, dataCredit data);
 // customer
 void createlistCustomer(listCustomer &Customers);
 void creatElementCustomer(listCustomer &Customers, dataCustomer data);
+
 
 // insert data to lists
 void insertLastCredit(listCredit &Credits, adrCredit credP);
@@ -69,12 +70,12 @@ adrCustomer getCustomer(listCustomer Customers, dataCustomer cust); // (4)
 
 // add new credit to customer X
 // menambahkan kartu kredit dari customer X
-void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred); // (5)
+void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred, string namaCust); // (5)
 
 
 // delete credit from customer X
 // menghapus kartu kredit dari customer X
-void deleteCreditInCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred); // (6)
+void deleteCreditInCustomer(listCredit &Credits, listCustomer &Customers, string namaCust); // (6)
 
 
 // show all credits from customer x
@@ -99,7 +100,7 @@ void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, d
 
 // highest credit cards owner
 // menampilkan customer yang memiliki jumlah kartu kredit yang paling banyak dan menampilkan kartu kredit tersebut
-void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers, dataCustomer cust); // (11)
+void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers); // (11)
 
 
 // find customer name from the credit cards identity
@@ -108,11 +109,11 @@ adrCustomer getCustomerFromCredit(listCredit Credits, dataCredit cred); // (12)
 
 
 // extra function and procedure
-// credit delete
+// credit delete [single linked list]
 void deleteFirstCredit(listCredit &Credits, adrCredit credP);
 void deleteAfterCredit(listCredit &Credits, adrCredit credP);
 void deleteLastCredit(listCredit &Credits, adrCredit credP);
-// customer delete
+// customer delete [single circular linked list]
 void deleteFirstCustomer(listCustomer &Customers, adrCustomer custP);
 void deleteAfterCustomer(listCustomer &Customers, adrCustomer custP);
 void deleteLastCustomer(listCustomer &Customers, adrCustomer custP);
