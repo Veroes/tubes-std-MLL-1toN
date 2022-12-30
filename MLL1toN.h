@@ -42,7 +42,7 @@ void createListCredit(listCredit &Credits);
 adrCredit createElementCredit(listCredit &Credits, dataCredit data);
 // customer
 void createlistCustomer(listCustomer &Customers);
-adrCustomer creatElementCustomer(listCustomer &Customers, dataCustomer data);
+adrCustomer createElementCustomer(listCustomer &Customers, dataCustomer data);
 
 
 // insert data to lists
