@@ -20,7 +20,7 @@ void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, d
 void createlistCustomer(listCustomer &Customers) {
 
 } // (16)
-void creatElementCustomer(listCustomer &Customers, dataCustomer data) {
+adrCustomer creatElementCustomer(listCustomer &Customers, dataCustomer data) {
 
 } // (16)
 void deleteFirstCustomer(listCustomer &Customers, adrCustomer custP) {

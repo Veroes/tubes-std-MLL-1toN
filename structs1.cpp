@@ -29,9 +29,9 @@ void deleteLastCredit(listCredit &Credits, adrCredit credP) {
 void createListCredit(listCredit &Credits) {
 
 } // (14)
-void createElementCredit(listCredit &Credits, dataCredit data) {
+adrCredit createElementCredit(listCredit &Credits, dataCredit data) {
 
 } // (14)
 void insertLastCredit(listCredit &Credits, adrCredit credP) {
-    
+
 } // (15)

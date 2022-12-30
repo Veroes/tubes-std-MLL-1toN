@@ -39,10 +39,10 @@ struct listCustomer {
 // create lists and elements
 // credit
 void createListCredit(listCredit &Credits);
-void createElementCredit(listCredit &Credits, dataCredit data);
+adrCredit createElementCredit(listCredit &Credits, dataCredit data);
 // customer
 void createlistCustomer(listCustomer &Customers);
-void creatElementCustomer(listCustomer &Customers, dataCustomer data);
+adrCustomer creatElementCustomer(listCustomer &Customers, dataCustomer data);
 
 
 // insert data to lists
