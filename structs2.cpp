@@ -23,12 +23,12 @@ void createlistCustomer(listCustomer &Customers) {
 adrCustomer createElementCustomer(listCustomer &Customers, dataCustomer data) {
 
 } // (16)
-void deleteFirstCustomer(listCustomer &Customers, adrCustomer custP) {
+void deleteFirstCustomer(listCustomer &Customers, adrCustomer &custP) {
 
 } // (17)
-void deleteAfterCustomer(listCustomer &Customers, adrCustomer custP) {
+void deleteAfterCustomer(listCustomer &Customers, adrCustomer &custP, dataCustomer cust) {
 
 } // (17)
-void deleteLastCustomer(listCustomer &Customers, adrCustomer custP) {
+void deleteLastCustomer(listCustomer &Customers, adrCustomer &custP) {
 
 } // (17)
