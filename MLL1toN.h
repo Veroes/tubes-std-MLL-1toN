@@ -109,11 +109,11 @@ adrCustomer getCustomerFromCredit(listCredit Credits, dataCredit cred); // (12)
 // extra function and procedure
 // credit delete [single linked list]
 void deleteFirstCredit(listCredit &Credits, adrCredit &credP);
-void deleteAfterCredit(listCredit &Credits, adrCredit &credP);
+void deleteAfterCredit(listCredit &Credits, adrCredit &credP, dataCredit cred);
 void deleteLastCredit(listCredit &Credits, adrCredit &credP);
 // customer delete [single circular linked list]
 void deleteFirstCustomer(listCustomer &Customers, adrCustomer &custP);
-void deleteAfterCustomer(listCustomer &Customers, adrCustomer &custP);
+void deleteAfterCustomer(listCustomer &Customers, adrCustomer &custP, dataCustomer cust);
 void deleteLastCustomer(listCustomer &Customers, adrCustomer &custP);
 
 
