@@ -71,12 +71,27 @@ void deleteCreditInCustomer(listCredit &Credits, listCustomer &Customers, string
 } // 6
 adrCustomer getCustomerFromCredit(listCredit Credits, dataCredit cred) {
 // {I.S -
-//  F.S Mengembaalikan address pelanggan dari daftar kredit}
+//  F.S Mengembalikan address pelanggan dari daftar kredit}
+    adrCredit thisCredit = first(Credits);
+    while(thisCredit != NULL && data(thisCredit).creditID == cred.creditID) {
+        thisCredit = nextCredit(thisCredit);
+    }
+    return child(thisCredit);
     
 } // (12)
 void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred, dataCustomer cust) {
 // {I.S Kredit belum memiliki child (terkoneksi) dengan pelanggan atau daftar kredit kosong
 //  F.S Melakukan konektivitas pelanggan dengan kartu kredit nya}
+    adrCustomer thisCustuomer = getCustomer(Customers, cust);
+    if(thisCustuomer != NULL) {
+        adrCredit thisCredit = first(Credits);
+        while(thisCredit != NULL && data(thisCredit).creditID != cred.creditID) {
+            thisCredit = nextCredit(thisCredit);
+        }
+        child(thisCredit) = thisCustuomer;
+    } else {
+        cout<<"Pelanggan tidak terdaftar\n";
+    }
 } // (9)
 void deleteFirstCredit(listCredit &Credits, adrCredit &credP) {
     if(first(Credits) == NULL) {
@@ -134,3 +149,21 @@ void insertLastCredit(listCredit &Credits, adrCredit credP) {
         nextCredit(thisCredit) = credP;
     }
 } // (15)
+
+void menu(int &command) {
+    cout<<"[1] Menambahkan customer baru\n";
+    cout<<"[2] Menampilkan data customer\n";
+    cout<<"[3] Menghapus customer tertentu\n";
+    cout<<"[4] Mencari customer X\n";
+    cout<<"[5] Menambahkan kartu kredit dari customer X\n";
+    cout<<"[6] Menghapus kartu kredit dari customer X\n";
+    cout<<"[7] Menampilkan seluruh kartu kredit dari customer X\n";
+    cout<<"[8] Mencari kartu kredit Y dari customer X\n";
+    cout<<"[9] Membuat relasi antara customer X dan kartu kredit Y\n";
+    cout<<"[10] Menghapus relasi antara customer X dan kartu kredit Y\n";
+    cout<<"[11] Menampilkan data customer yang memiliki kredit terbanyak\n";
+    cout<<"[12] Mencari nama customer dari kartu kredit Y\n";
+    cout<<"[0] exit\n";
+    cout<<"Masukan Angka: ";
+    cin>>command;
+}

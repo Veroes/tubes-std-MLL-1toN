@@ -15,10 +15,7 @@ void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredi
     dataCustomer dCust;
     dCust = data(pCust);
     
-    pCust = getCustomer(Customers, cust);
-    if(pCust==NULL){
-        cout<<"The customer's name is not found!";
-    }else{
+    if(pCust!=NULL){
         pCred = createElementCredit(Credits, cred);
         insertLastCredit(Credits, pCred);
         connectCreditToCustomer(Credits, Customers, cred, dCust);
@@ -113,8 +110,6 @@ void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer c
     }
 } // (3)
 
-void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers) {
-} // (11)
 
 void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred, dataCustomer cust) {
 // IS : Terdefinisi data credit y dan data cust x 
@@ -141,7 +136,9 @@ void createlistCustomer(listCustomer &Customers) {
 
 adrCustomer createElementCustomer(listCustomer &Customers, dataCustomer data) {
     adrCustomer C = new elmCustomer;
-    data(C) = data;
+    data(C).name = data.name;
+    data(C).age = data.age;
+    data(C).gender = data.gender;
     nextCustomer(C) = NULL;
     return C;
 } // (16)
@@ -229,7 +226,7 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){
             }
             pCust = nextCustomer(pCust);
         }
-    }
+    } 
 
     cout<<"============= HIGHEST CUSTOMER CREDITS DATA ==============="<<endl;
     showCustomerData(Customers, dCust);
@@ -244,4 +241,4 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){
         }
         pCust = nextCustomer(pCust);
     }
-}
+} // (11)

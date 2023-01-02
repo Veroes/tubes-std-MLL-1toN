@@ -119,6 +119,7 @@ void deleteLastCredit(listCredit &Credits, adrCredit &credP);
 void deleteFirstCustomer(listCustomer &Customers, adrCustomer &custP);
 void deleteAfterCustomer(listCustomer &Customers, adrCustomer &custP, dataCustomer cust);
 void deleteLastCustomer(listCustomer &Customers, adrCustomer &custP);
-
+// menu
+void menu(int &command);
 
 #endif // MLL1TON_H_INCLUED
