@@ -15,8 +15,8 @@ struct dataCredit {
     string creditName, creditID; 
 };
 struct dataCustomer {
-    string name, gender, creditID;
-    int age;
+    string name, gender;
+    int age, totalCredits;
 };
 // Credit and Customer pointers
 typedef struct elmCredit *adrCredit;
@@ -31,10 +31,11 @@ struct elmCustomer {
     dataCustomer data;
     adrCustomer nextCustomer;
 };
-// Lists 
+// Lists (L1 - SLL)
 struct listCredit {
     adrCredit first;
 };
+// List (L2 - CLL)
 struct listCustomer {
     adrCustomer first;
 };
@@ -121,15 +122,3 @@ void deleteLastCustomer(listCustomer &Customers, adrCustomer &custP);
 
 
 #endif // MLL1TON_H_INCLUED
-/* placeholder
-//----------------------------------------------------------
-// count child from specific parent
-int countChild (listCredit&Credits, dataCredit data);
-
-// connecting parent to child
-void connectingParentToChild (listCredit &Credits, listCustomer Customers, dataCredit dataP, data dataC);
-
-// delete child from a specific parent
-// ini hapus child dari list child? atau cuma hapus hubungan parent ke child???
-void deleteChildfromParent (listCredit &Credits, dataCredit dataP, data dataC);
-*/
