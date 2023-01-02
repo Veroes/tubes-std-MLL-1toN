@@ -72,7 +72,7 @@ adrCustomer getCustomer(listCustomer Customers, dataCustomer cust); // (4)
 
 // add new credit to customer X
 // menambahkan kartu kredit dari customer X
-void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred, string namaCust); // (5)
+void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred, dataCustomer cust); // (5)
 
 
 // delete credit from customer X
