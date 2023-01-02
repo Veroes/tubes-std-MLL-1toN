@@ -1,10 +1,13 @@
 #ifndef MLL1TON_H_INCLUDED
 #define MLL1TON_H_INCLUDED
-#include <bits\stdc++.h>
+#include <iostream>
+#include <ostream>
+#include <conio.h>
 using namespace std;
 #define nextCustomer(P) P->nextCustomer
 #define nextCredit(P) P->nextCredit
 #define data(P) P->data
+#define child(P) P->child
 #define first(L) ((L).first)
 
 // Credit and Customer infotype
@@ -22,7 +25,7 @@ typedef struct elmCustomer *adrCustomer;
 struct elmCredit {
     dataCredit data;
     adrCredit nextCredit;
-    adrCustomer nextCustomer;
+    adrCustomer child;
 };
 struct elmCustomer {
     dataCustomer data;
@@ -46,8 +49,8 @@ adrCustomer createElementCustomer(listCustomer &Customers, dataCustomer data);
 
 
 // insert data to lists
+// menambakan kredit dan customer baru
 void insertLastCredit(listCredit &Credits, adrCredit credP);
-// menambakan customer baru
 void insertLastCustomer(listCustomer &Customers, adrCustomer custP); // (1)
 
 
