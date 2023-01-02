@@ -26,7 +26,7 @@ void showCustomerData(listCustomer &Customers, dataCustomer cust) { // CSLL [don
             cout<<"Nama\t\t: "<<data(thisCustomer).name<<"\n";
             cout<<"Jenis Kelamin\t: "<<data(thisCustomer).gender<<"\n";
             cout<<"Umur\t\t: "<<data(thisCustomer).age<<"\n";
-            cout<<"ID kredit\t: "<<data(thisCustomer).creditID<<"\n\n";
+            cout<<"Total Credit\t: "<<data(thisCustomer).totalCredits<<"\n\n";
             thisCustomer = nextCustomer(thisCustomer);
         } while(thisCustomer != first(Customers));
     }
