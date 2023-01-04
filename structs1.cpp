@@ -7,7 +7,7 @@ void insertLastCustomer(listCustomer &Customers, adrCustomer custP) { // CSLL [d
         nextCustomer(custP) = first(Customers);
     } else {
         adrCustomer thisCustomer = first(Customers);
-        while(next(thisCustomer) != first(Customers)) {
+        while(nextCustomer(thisCustomer) != first(Customers)) {
             thisCustomer = nextCustomer(thisCustomer);
         }
         nextCustomer(thisCustomer) = custP;
@@ -20,15 +20,12 @@ void showCustomerData(listCustomer &Customers, dataCustomer cust) { // CSLL [don
     if(first(Customers) == NULL) {
         cout<<"Tidak ada pelanggan yang terdaftar\n";
     } else {
-        cout<<"========================DAFTAR PELANGGAN========================\n";
-        adrCustomer thisCustomer = first(Customers);
-        do {
-            cout<<"Nama\t\t: "<<data(thisCustomer).name<<"\n";
-            cout<<"Jenis Kelamin\t: "<<data(thisCustomer).gender<<"\n";
-            cout<<"Umur\t\t: "<<data(thisCustomer).age<<"\n";
-            cout<<"Total Credit\t: "<<data(thisCustomer).totalCredits<<"\n\n";
-            thisCustomer = nextCustomer(thisCustomer);
-        } while(thisCustomer != first(Customers));
+        adrCustomer thisCustomer = getCustomer(Customers, cust);
+        cout<<"Nama\t\t: "<<data(thisCustomer).name<<"\n";
+        cout<<"Jenis Kelamin\t: "<<data(thisCustomer).gender<<"\n";
+        cout<<"Umur\t\t: "<<data(thisCustomer).age<<"\n";
+        cout<<"Total Credit\t: "<<data(thisCustomer).totalCredits<<"\n\n";
+        thisCustomer = nextCustomer(thisCustomer);
     }
 } // 2
 adrCredit getCreditInCustomer(listCredit Credits, dataCredit cred, dataCustomer cust) { // [done]
@@ -43,23 +40,31 @@ adrCredit getCreditInCustomer(listCredit Credits, dataCredit cred, dataCustomer 
     }
     return NULL;
 } // 8
-void deleteCreditInCustomer(listCredit &Credits, listCustomer &Customers, string namaCust) { // [done]
+void deleteCreditInCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer cust) { // [done]
 // {I.S terdaftar tiap kredit dari pelanggan atau tidak
 //  F.S menghapus tiap kredit yang dimiliki oleh pelanggan}
     int deletedCredits;
     adrCredit deletedCreditP;
     adrCredit thisCredit = first(Credits);
     while(thisCredit != NULL) {
-        if(data(child(thisCredit)).name == namaCust) {
+        if(data(child(thisCredit)).name == cust.name) {
             disconnectCreditAndCustomer(Credits, Customers, data(thisCredit), data(child(thisCredit)));
+            cout<<"1";
+            cout<<"2";
             if(thisCredit == first(Credits)) {
+                cout<<"3";
                 deleteFirstCredit(Credits, deletedCreditP);
+                cout<<"4";
             } else if(nextCredit(thisCredit) == NULL) {
+                cout<<"5";
                 deleteLastCredit(Credits, deletedCreditP);
+                cout<<"6";
             } else {
+                cout<<"7";
                 deleteAfterCredit(Credits, deletedCreditP, data(thisCredit));
             }
             ++deletedCredits;
+            cout<<"2";
         }
         thisCredit = nextCredit(thisCredit);
     }
@@ -76,8 +81,8 @@ adrCustomer getCustomerFromCredit(listCredit Credits, dataCredit cred) {
     while(thisCredit != NULL && data(thisCredit).creditID == cred.creditID) {
         thisCredit = nextCredit(thisCredit);
     }
+    cout<<"1";
     return child(thisCredit);
-    
 } // (12)
 void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred, dataCustomer cust) {
 // {I.S Kredit belum memiliki child (terkoneksi) dengan pelanggan atau daftar kredit kosong
@@ -89,6 +94,7 @@ void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataC
             thisCredit = nextCredit(thisCredit);
         }
         child(thisCredit) = thisCustuomer;
+        ++data(thisCustuomer).totalCredits;
     } else {
         cout<<"Pelanggan tidak terdaftar\n";
     }
@@ -96,6 +102,9 @@ void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataC
 void deleteFirstCredit(listCredit &Credits, adrCredit &credP) {
     if(first(Credits) == NULL) {
         cout<<"Tidak ada kredit yang terdaftar\n";
+    }else if(nextCredit(first(Credits)) == NULL) {
+        credP = first(Credits);
+        first(Credits) = NULL;
     } else {
         credP = first(Credits);
         first(Credits) = nextCredit(first(Credits));
@@ -109,7 +118,9 @@ void deleteAfterCredit(listCredit &Credits, adrCredit &credP, dataCredit cred) {
         while((data(nextCredit(precCredit)).creditID != cred.creditID)) {
             precCredit = nextCredit(precCredit);
         }
-
+        credP = nextCredit(precCredit);
+        nextCredit(precCredit) = nextCredit(credP);
+        nextCredit(credP) = NULL;
     }
 } // (13)
 void deleteLastCredit(listCredit &Credits, adrCredit &credP) {
@@ -139,7 +150,7 @@ adrCredit createElementCredit(listCredit &Credits, dataCredit data) {
     return thisCredit;
 } // (14)
 void insertLastCredit(listCredit &Credits, adrCredit credP) {
-    if(first(Credits) != NULL) {
+    if(first(Credits) == NULL) {
         first(Credits) = credP;
     } else {
         adrCredit thisCredit = first(Credits);
