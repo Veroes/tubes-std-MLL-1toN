@@ -75,13 +75,12 @@ void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, d
    if(thisCustomer == NULL){
         cout<<"Pelanggan tidak terdaftar\n";
    }else{
-        adrCredit thisCredit = first(Credits);
-        while(thisCredit != NULL){
-            if(child(thisCredit) == thisCustomer){
-                child(thisCredit) = NULL;
-                --data(thisCustomer).totalCredits;
-            }
-            thisCredit = nextCredit(thisCredit);
+        adrCredit thisCredit = getCredit(Credits, dataCred);
+        if(child(thisCredit) == thisCustomer){
+            child(thisCredit) = NULL;
+            --data(thisCustomer).totalCredits;
+        }else{
+            cout<<"Kartu kredit tidak terdaftar\n";
         }
    }
 } // (10)
@@ -180,12 +179,12 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ /
     }
 } // (11)
 
-adrCredit getCredit(listCredit Credits, dataCredit cred){ // SLL [done] [clean]
+adrCredit getCredit(listCredit Credits, dataCredit dataCred){ // SLL [done] [clean]
 // {I.S : Terdefinisi data credit Y
 //  F.S : Mengembalikan address dari elemen credit Y jika ditemukan atau NULL jika tidak ditemukan}
     adrCredit thisCredit = first(Credits);
     while(thisCredit != NULL){
-        if(data(thisCredit).creditID == cred.creditID){
+        if(data(thisCredit).creditID == dataCred.creditID){
             return thisCredit;
         }else{
             thisCredit = nextCredit(thisCredit);
