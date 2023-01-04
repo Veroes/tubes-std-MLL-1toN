@@ -77,7 +77,7 @@ void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredi
 
 // delete credit from customer X
 // menghapus kartu kredit dari customer X
-void deleteCreditInCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer dataCust); // (6)
+void deleteAllCreditInCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer dataCust); // (6)
 
 
 // show all credits from customer x
@@ -87,7 +87,7 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
 
 // find credit from customer
 // mencari kartu kredit Y dari customer X
-adrCredit getCreditInCustomer(listCredit Credits, dataCredit cred, dataCustomer dataCust); // (8)
+adrCredit getCreditInCustomer(listCredit Credits, dataCredit dataCred, dataCustomer dataCust); // (8)
 
 
 // connect credit to customer

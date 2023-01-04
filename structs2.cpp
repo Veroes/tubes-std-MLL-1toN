@@ -16,7 +16,7 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
     adrCredit thisCredit;
     thisCustomer = getCustomer(Customers, dataCust);    
     if(thisCustomer==NULL){
-        cout<<"Pelanggan tidak ditemukan\n";
+        cout<<"Customer tidak ditemukan\n";
     }else{
         thisCredit = first(Credits);
         while(thisCredit != NULL){
@@ -28,7 +28,7 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
             thisCredit = nextCredit(thisCredit);
         }
         if(counter == 0){
-            cout<<"Pelanggan tidak memiliki kartu kredit\n";
+            cout<<"Customer tidak memiliki kartu kredit\n";
         }
     }
 } // (7)
@@ -55,9 +55,9 @@ void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer d
     adrCustomer thisCustomer = getCustomer(Customers, dataCust);
     adrCustomer deletedCreditP;
     if(thisCustomer == NULL){     
-        cout<<"Tidak bisa menghapus data pelanggan! nama pelanggan tidak ditemukan\n";
+        cout<<"Tidak bisa menghapus data customer! nama customer tidak ditemukan\n";
     }else{
-        deleteCreditInCustomer(Credits, Customers, dataCust);
+        deleteAllCreditInCustomer(Credits, Customers, dataCust);
         if(thisCustomer == first(Customers)){
             deleteFirstCustomer(Customers, deletedCreditP);
         }else if(nextCustomer(thisCustomer) == first(Customers)){
@@ -71,18 +71,13 @@ void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer d
 void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, dataCredit dataCred, dataCustomer dataCust){ // [done] [clean]
 // {I.S : Terdefinisi data credit Y dan data cust X
 //  F.S : Memutuskan relasi antara credit Y dan cust X}
-   adrCustomer thisCustomer = getCustomer(Customers, dataCust);
-   if(thisCustomer == NULL){
-        cout<<"Pelanggan tidak terdaftar\n";
-   }else{
-        adrCredit thisCredit = getCredit(Credits, dataCred);
-        if(child(thisCredit) == thisCustomer){
-            child(thisCredit) = NULL;
-            --data(thisCustomer).totalCredits;
-        }else{
-            cout<<"Kartu kredit tidak terdaftar\n";
-        }
-   }
+    adrCredit thisCredit = getCreditInCustomer(Credits, dataCred, dataCust);
+    if(thisCredit == NULL){
+        cout<<"Kartu kredit tidak terdaftar\n";
+    }else{
+        --data(child(thisCredit)).totalCredits;
+        child(thisCredit) = NULL;
+    }
 } // (10)
 
 void createlistCustomer(listCustomer &Customers){ // CSLL [done] [clean]
@@ -152,7 +147,7 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ /
 // {I.S : Terdefinisi list cust dan lust credit mungkin kosong
 //  F.S : Menampilkan data customer dengan jumlah kredit terbanyak beserta kartu kredit yang dimilikinya}
     if(first(Customers) == NULL){
-        cout<<"Daftar pelanggan kosong\n";
+        cout<<"Daftar Customer kosong\n";
     }else{
         adrCustomer thisCustomer = first(Customers);
         adrCustomer highestCustomer;
