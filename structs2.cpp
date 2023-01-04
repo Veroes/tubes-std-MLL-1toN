@@ -7,11 +7,12 @@ void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredi
 // 2. kalo ada, create elmCredit untuk memasukkan data credit baru
 // 3. hubungkan cust x dengan elemen credit baru
 // 4. update totalCredits cust x
-    
+    /*
     adrCredit thisCredit;
     adrCustomer thisCustomer;
 
     dataCustomer dataCust;
+    
     dataCust.name = data(thisCustomer).name;
     dataCust.age = data(thisCustomer).age;
     dataCust.gender = data(thisCustomer).gender;
@@ -26,6 +27,10 @@ void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredi
         connectCreditToCustomer(Credits, Customers, cred, dataCust);
         data(thisCustomer).totalCredits++;
     }
+    */
+    adrCredit thisCredit = createElementCredit(Credits, cred);
+    insertLastCredit(Credits, thisCredit);
+    connectCreditToCustomer(Credits, Customers, cred, cust);
 } // (5)
 
 void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustomer cust){
@@ -46,14 +51,14 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
         cout<<"The customer's name is not found!";
     }else{
         thisCredit = first(Credits);
-        while(next(thisCredit) != first(Credits)){
+        while(thisCredit != NULL){
             if(child(thisCredit) != NULL && data(child(thisCredit)).name == cust.name){
                 counter++;
                 cout<<"Credit Name : "<<data(thisCredit).creditName<<endl;
                 cout<<"Credit ID : "<<data(thisCredit).creditID<<endl;
                 cout<<endl;
             }
-            thisCredit = next(thisCredit);
+            thisCredit = nextCredit(thisCredit);
         }
     }
 
@@ -62,18 +67,15 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
     }
 } // (7)
 
-adrCustomer getCustomer(listCustomer Customers, dataCustomer cust){
+adrCustomer getCustomer(listCustomer Customers, dataCustomer dataCust){
 // IS : Terdefinisi nama customer X
 // FS : mengembalikan address dari elemen cust x jika ditemukan atau NULL jika tidak ditemukan
-
-    adrCustomer thisCustomer;
-
-    if(first(Customers) == NULL){
-        return NULL;
-    }else{
-        thisCustomer = first(Customers);   
-        while(next(thisCustomer) != first(Customers) && data(thisCustomer).name != cust.name){
+    adrCustomer thisCustomer = first(Customers);
+    while(thisCustomer != NULL && data(thisCustomer).name != dataCust.name){
+        if(nextCustomer(thisCustomer) != first(Customers)){
             thisCustomer = nextCustomer(thisCustomer);
+        }else{
+            return NULL;
         }
     }
     return thisCustomer;
@@ -94,7 +96,7 @@ void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer c
     
     gCust = getCustomer(Customers, cust);    // Kalo retrun null bisajadi list kosong atau data emang ga ditemuin
     if(gCust != NULL){      
-        deleteCreditInCustomer(Credits, Customers, cust.name);  
+        deleteCreditInCustomer(Credits, Customers, cust);  
 
         if(nextCustomer(first(Customers)) == first(Customers) || first(Customers) == gCust){                 
             deleteFirstCustomer(Customers, gCust);
@@ -115,14 +117,13 @@ void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer c
     }
 } // (3)
 
-void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred, dataCustomer cust) {
+void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, dataCredit dataCred, dataCustomer dataCust){
 // IS : Terdefinisi data credit y dan data cust x 
 // FS : memutuskan relasi antara credit y dan cust x
-
+    /*
     adrCustomer thisCustomer;
-    adrCredit thisCredit;     
-
-    thisCustomer = getCustomerFromCredit(Credits, cred);
+    adrCredit thisCredit;
+    thisCustomer = getCustomerFromCredit(Credits, dataCred);
     if(thisCustomer == NULL){
         cout<<"The customer's name is not found!"<<endl;
     }else{
@@ -132,6 +133,19 @@ void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, d
         }
         child(thisCredit) = NULL;
     }
+    */
+   adrCustomer thisCustomer = getCustomer(Customers, dataCust);
+   if(thisCustomer == NULL){
+        cout<<"Pelanggan tidak terdaftar\n";
+   }else{
+        adrCredit thisCredit = first(Credits);
+        while(thisCredit != NULL){
+            if(child(thisCredit) == thisCustomer){
+                child(thisCredit) = NULL;
+            }
+            thisCredit = nextCredit(thisCredit);
+        }
+   }
 } // (10)
 
 void createlistCustomer(listCustomer &Customers) {
@@ -140,10 +154,13 @@ void createlistCustomer(listCustomer &Customers) {
 
 adrCustomer createElementCustomer(listCustomer &Customers, dataCustomer data) {
     adrCustomer thisCredit = new elmCustomer;
+    /*
     data(thisCredit).name = data.name;
     data(thisCredit).age = data.age;
     data(thisCredit).gender = data.gender;
     data(thisCredit).totalCredits = 0;
+    */
+    data(thisCredit) = data;
     nextCustomer(thisCredit) = NULL;
     return thisCredit;
 } // (16)
