@@ -48,7 +48,7 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
 
     thisCustomer = getCustomer(Customers, cust);    
     if(thisCustomer==NULL){
-        cout<<"The customer's name is not found!";
+        cout<<"The customer's name is not found!"<<endl;
     }else{
         thisCredit = first(Credits);
         while(thisCredit != NULL){
@@ -60,10 +60,9 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
             }
             thisCredit = nextCredit(thisCredit);
         }
-    }
-
-    if(counter == 0){
-    cout<<"The customer doesn't have a credit card!"<<endl;
+        if(counter == 0){
+            cout<<"The customer doesn't have a credit card!"<<endl;
+        }
     }
 } // (7)
 
@@ -142,6 +141,7 @@ void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, d
         while(thisCredit != NULL){
             if(child(thisCredit) == thisCustomer){
                 child(thisCredit) = NULL;
+                --data(thisCustomer).totalCredits;
             }
             thisCredit = nextCredit(thisCredit);
         }
@@ -223,37 +223,48 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){
 // IS : terdefinisi list cust dan lust credit mungkin kosong
 // FS : menampilkan data customer dengan jumlah kredit terbanyak beserta kartu kredit yang dimilikinya
 
-    adrCustomer thisCustomer;
-    dataCustomer dataCust;
-    dataCust.name = data(thisCustomer).name;
-    dataCust.age = data(thisCustomer).age;
-    dataCust.gender = data(thisCustomer).gender;
-    dataCust.totalCredits = data(thisCustomer).totalCredits;
+    adrCustomer thisCustomer, highestCustomer;
     int highestCredits = 0;
 
-    if(first(Customers) != NULL){
+    if(first(Customers) == NULL){
         cout<<"Customers data is empty!"<<endl;
     }else{
         thisCustomer = first(Customers);
         while(nextCustomer(thisCustomer) != first(Customers)){
             if(data(thisCustomer).totalCredits > highestCredits){
                 highestCredits = data(thisCustomer).totalCredits;
+                highestCustomer = thisCustomer;
             }
             thisCustomer = nextCustomer(thisCustomer);
         }
-    } 
+    }
 
     cout<<"============= HIGHEST CUSTOMER CREDITS DATA ==============="<<endl;
-    showCustomerData(Customers, dataCust);
-    showCustomerCredit(Credits, Customers, dataCust);
+    showCustomerData(Customers, data(highestCustomer));
+    showCustomerCredit(Credits, Customers, data(highestCustomer));
 
 // kalo ada yg punya jumlah credit yang sama dengan highestCred, tampilkan jg
     thisCustomer = first(Customers);
     while(nextCustomer(thisCustomer) != first(Customers)){
-        if(data(thisCustomer).totalCredits == highestCredits){
-            showCustomerData(Customers, dataCust);
-            showCustomerCredit(Credits, Customers, dataCust);
+        if(thisCustomer != highestCustomer && data(thisCustomer).totalCredits == highestCredits ){
+            showCustomerData(Customers, data(thisCustomer));
+            showCustomerCredit(Credits, Customers, data(thisCustomer));
         }
         thisCustomer = nextCustomer(thisCustomer);
     }
 } // (11)
+
+adrCredit getCredit(listCredit Credits, dataCredit cred){
+// IS : Terdefinisi data credit y
+// FS : mengembalikan address dari elemen credit y jika ditemukan atau NULL jika tidak ditemukan
+    adrCredit thisCredit = first(Credits);
+    while(thisCredit != NULL){
+        if(data(thisCredit).creditID == cred.creditID){
+            return thisCredit;
+        }else{
+            thisCredit = nextCredit(thisCredit);
+        }
+    }
+    return NULL;
+}
+// (extras)

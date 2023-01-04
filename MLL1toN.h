@@ -1,7 +1,6 @@
 #ifndef MLL1TON_H
 #define MLL1TON_H
-#include <iostream>
-#include <ostream>
+#include <bits/stdc++.h>
 #include <conio.h>
 using namespace std;
 #define nextCustomer(P) P->nextCustomer
@@ -111,6 +110,10 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers); /
 adrCustomer getCustomerFromCredit(listCredit Credits, dataCredit dataCred); // (12)
 
 
+// find credit
+adrCredit getCredit(listCredit Credits, dataCredit dataCred);
+
+
 // extra function and procedure
 // credit delete [single linked list]
 void deleteFirstCredit(listCredit &Credits, adrCredit &credP);
@@ -122,5 +125,6 @@ void deleteAfterCustomer(listCustomer &Customers, adrCustomer &custP, dataCustom
 void deleteLastCustomer(listCustomer &Customers, adrCustomer &custP);
 // menu
 void menu(int &command);
-
+// validate integer input
+int validateIntInput(int x);
 #endif // MLL1TON_H
