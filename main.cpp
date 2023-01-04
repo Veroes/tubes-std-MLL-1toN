@@ -21,8 +21,8 @@ int main() {
                 for(int i = 0 ; i < iCust ; i++) {
                     cout<<"Masukkan nama : ";
                     cin>>dataCust.name;
-                    adrCustomer thisCustomer = getCustomer(Customers, dataCust);                    
-                    if(thisCustomer != NULL){
+                    custP = getCustomer(Customers, dataCust);                    
+                    if(custP != NULL){
                         cout<<"Pelanggan sudah ada dalam list\n";
                     }else{
                         cout<<"Masukkan umur : ";
@@ -62,19 +62,19 @@ int main() {
                 cout<<"Masukan nama customer : ";
                 cin>>dataCust.name;
                 custP = getCustomer(Customers, dataCust);
-                if(custP == NULL) {
+                if(custP == NULL){
                     cout<<"Data pelanggan tidak ditemukan\n";
-                } else {
+                }else{
                     cout<<"Pelanggan ditemukan\n\n";
                     cout<<"Nama\t\t: "<<data(custP).name<<"\n";
-                    cout<<"Umur\t: "<<data(custP).age<<"\n";
-                    cout<<"gender\t: "<<data(custP).gender<<"\n";
+                    cout<<"Umur\t\t: "<<data(custP).age<<"\n";
+                    cout<<"gender\t\t: "<<data(custP).gender<<"\n";
                     cout<<"total kredit\t: "<<data(custP).totalCredits<<"\n";
                 }
                 break;
             }
 
-            case 5: { // Menambahkan kartu kredit dari customer X
+            case 5: { // Menambahkan kartu kredit dari customer X [done] [clean]
                 dataCredit dataCred;
                 dataCustomer dataCust;
                 system("cls");
