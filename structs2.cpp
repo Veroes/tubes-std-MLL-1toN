@@ -67,15 +67,15 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
     }
 } // (7)
 
-adrCustomer getCustomer(listCustomer Customers, dataCustomer cust){
+adrCustomer getCustomer(listCustomer Customers, dataCustomer dataCust){
 // IS : Terdefinisi nama customer X
 // FS : mengembalikan address dari elemen cust x jika ditemukan atau NULL jika tidak ditemukan
     adrCustomer thisCustomer = first(Customers);
-    while(thisCustomer != NULL && data(thisCustomer).name != cust.name){
+    while(thisCustomer != NULL && data(thisCustomer).name != dataCust.name){
         if(nextCustomer(thisCustomer) != first(Customers)){
             thisCustomer = nextCustomer(thisCustomer);
         }else{
-            break;
+            return NULL;
         }
     }
     return thisCustomer;
@@ -117,13 +117,13 @@ void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer c
     }
 } // (3)
 
-void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, dataCredit cred, dataCustomer cust) {
+void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, dataCredit dataCred, dataCustomer dataCust){
 // IS : Terdefinisi data credit y dan data cust x 
 // FS : memutuskan relasi antara credit y dan cust x
-
+    /*
     adrCustomer thisCustomer;
     adrCredit thisCredit;
-    thisCustomer = getCustomerFromCredit(Credits, cred);
+    thisCustomer = getCustomerFromCredit(Credits, dataCred);
     if(thisCustomer == NULL){
         cout<<"The customer's name is not found!"<<endl;
     }else{
@@ -133,6 +133,19 @@ void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, d
         }
         child(thisCredit) = NULL;
     }
+    */
+   adrCustomer thisCustomer = getCustomer(Customers, dataCust);
+   if(thisCustomer == NULL){
+        cout<<"Pelanggan tidak terdaftar\n";
+   }else{
+        adrCredit thisCredit = first(Credits);
+        while(thisCredit != NULL){
+            if(child(thisCredit) == thisCustomer){
+                child(thisCredit) = NULL;
+            }
+            thisCredit = nextCredit(thisCredit);
+        }
+   }
 } // (10)
 
 void createlistCustomer(listCustomer &Customers) {

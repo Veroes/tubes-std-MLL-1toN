@@ -4,18 +4,17 @@ int main() {
     listCustomer Customers;
     adrCredit credP; 
     adrCustomer custP;
-    dataCustomer dataCust;
-    dataCredit dataCred;
     int command;
 
     createListCredit(Credits);
     createlistCustomer(Customers);
     menu(command);
 
-    while(command != 0) {
-        switch(command) {
-            case 1: { // Menambahkan customer baru [done]
+    while(command != 0){
+        switch(command){
+            case 1:{ // Menambahkan customer baru [done]
                 int iCust;
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"Masukan berapa banyak data customer yang ingin di input : ";
                 cin>>iCust;
@@ -33,14 +32,16 @@ int main() {
                 }
                 break;
             }
-            case 2: { // Menampilkan data customer X [done]
+            case 2:{ // Menampilkan data customer X [done]
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"Masukan nama customer : ";
                 cin>>dataCust.name;
                 showCustomerData(Customers, dataCust);
                 break;
             }
-            case 3: { // Menghapus customer tertentu
+            case 3:{ // Menghapus customer tertentu
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"Masukan nama customer yang akan diapus : ";
                 cin>>dataCust.name;
@@ -48,6 +49,7 @@ int main() {
                 break;
             }
             case 4: { // Mencari customer X
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"Masukan nama customer : ";
                 cin>>dataCust.name;
@@ -63,6 +65,8 @@ int main() {
                 break;
             }
             case 5: { // Menambahkan kartu kredit dari customer X
+                dataCredit dataCred;
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"Masukkan nama pelanggan : ";
                 cin>>dataCust.name;
@@ -81,14 +85,15 @@ int main() {
             break;
             }
             case 6: { // Menghapus kartu kredit dari customer X
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"Masukan nama customer : ";
                 cin>>dataCust.name;
                 deleteCreditInCustomer(Credits, Customers, dataCust);
-                cout<<"data berhasil dihapus";
                 break;  
             }
             case 7: { // Menampilkan seluruh kartu kredit dari customer X
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"Masukan nama customer : ";
                 cin>>dataCust.name;
