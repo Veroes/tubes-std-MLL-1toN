@@ -1,85 +1,4 @@
 #include "MLL1toN.h"
-void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit dataCred, dataCustomer dataCust){ // [done] [clean]
-// {I.S : Terdefinisi nama customer X
-//  F.S : Data credit baru ditambahkan ke dalam list credit sebagai elemen terakhir
-//        kemudian hubungkan cust x dengan elemen credit baru}
-    adrCredit thisCredit = createElementCredit(Credits, dataCred);
-    insertLastCredit(Credits, thisCredit);
-    connectCreditToCustomer(Credits, Customers, dataCred, dataCust);
-} // (5)
-
-void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustomer dataCust){ // [done] [clean]
-// {I.S : Terdefinisi nama customer X
-//  F.S : Seluruh kartu kredit dari cust x akan ditampilkan}
-    int counter = 0;
-    adrCustomer thisCustomer;
-    adrCredit thisCredit;
-    thisCustomer = getCustomer(Customers, dataCust);    
-    if(thisCustomer==NULL){
-        cout<<"Customer tidak ditemukan\n";
-    }else{
-        thisCredit = first(Credits);
-        while(thisCredit != NULL){
-            if(child(thisCredit) != NULL && data(child(thisCredit)).name == dataCust.name){
-                counter++;
-                cout<<"Credit Name : "<<data(thisCredit).creditName<<"\n";
-                cout<<"Credit ID : "<<data(thisCredit).creditID<<"\n\n";
-            }
-            thisCredit = nextCredit(thisCredit);
-        }
-        if(counter == 0){
-            cout<<"Customer tidak memiliki kartu kredit\n";
-        }
-    }
-} // (7)
-
-adrCustomer getCustomer(listCustomer Customers, dataCustomer dataCust){ // CSLL [done] [clean]
-// {I.S : Terdefinisi nama customer X
-//  F.S : Mengembalikan address dari elemen cust X jika ditemukan atau NULL jika tidak ditemukan}
-    adrCustomer thisCustomer = first(Customers);
-    while(thisCustomer != NULL && data(thisCustomer).name != dataCust.name){
-        if(nextCustomer(thisCustomer) != first(Customers)){
-            thisCustomer = nextCustomer(thisCustomer);
-        }else{
-            return NULL;
-        }
-    }
-    return thisCustomer;
-}
-// (4)
-
-void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer dataCust) { // [done] [clean]
-// {I.S : Terdefinisi data customer
-// {F.S : Menghapus seluruh credit card milik customer X dari list credit 
-//        kemudian menghapus customer X dari list customer}
-    adrCustomer thisCustomer = getCustomer(Customers, dataCust);
-    adrCustomer deletedCreditP;
-    if(thisCustomer == NULL){     
-        cout<<"Tidak bisa menghapus data customer! nama customer tidak ditemukan\n";
-    }else{
-        deleteAllCreditInCustomer(Credits, Customers, dataCust);
-        if(thisCustomer == first(Customers)){
-            deleteFirstCustomer(Customers, deletedCreditP);
-        }else if(nextCustomer(thisCustomer) == first(Customers)){
-            deleteLastCustomer(Customers, deletedCreditP);
-        }else{
-            deleteAfterCustomer(Customers, deletedCreditP, data(thisCustomer));
-        }
-    }
-} // (3)
-
-void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, dataCredit dataCred, dataCustomer dataCust){ // [done] [clean]
-// {I.S : Terdefinisi data credit Y dan data cust X
-//  F.S : Memutuskan relasi antara credit Y dan cust X}
-    adrCredit thisCredit = getCreditInCustomer(Credits, dataCred, dataCust);
-    if(thisCredit == NULL){
-        cout<<"Kartu kredit tidak terdaftar\n";
-    }else{
-        --data(child(thisCredit)).totalCredits;
-        child(thisCredit) = NULL;
-    }
-} // (10)
-
 void createlistCustomer(listCustomer &Customers){ // CSLL [done] [clean]
 // {I.S : -
 //  F.S : Membuat daftar customer}
@@ -143,6 +62,105 @@ void deleteLastCustomer(listCustomer &Customers, adrCustomer &custP) { // CSLL [
     nextCustomer(custP) = NULL;
 } // (17)
 
+adrCustomer getCustomer(listCustomer Customers, dataCustomer dataCust){ // CSLL [done] [clean]
+// {I.S : Terdefinisi nama customer X
+//  F.S : Mengembalikan address dari elemen cust X jika ditemukan atau NULL jika tidak ditemukan}
+    adrCustomer thisCustomer = first(Customers);
+    if(thisCustomer == NULL){
+        return NULL;
+    }else{
+        do{
+            if(data(thisCustomer).name == dataCust.name && data(thisCustomer).NIK == dataCust.NIK){
+                return thisCustomer;
+            }else{
+                thisCustomer = nextCustomer(thisCustomer);
+            }
+        }while(thisCustomer != first(Customers));
+        return NULL;
+    }
+}
+// (4)
+
+adrCredit getCredit(listCredit Credits, dataCredit dataCred){ // SLL [done] [clean]
+// {I.S : Terdefinisi data credit Y
+//  F.S : Mengembalikan address dari elemen credit Y jika ditemukan atau NULL jika tidak ditemukan}
+    adrCredit thisCredit = first(Credits);
+    while(thisCredit != NULL){
+        if(data(thisCredit).creditID == dataCred.creditID){
+            return thisCredit;
+        }else{
+            thisCredit = nextCredit(thisCredit);
+        }
+    }
+    return NULL;
+}
+
+void addCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit dataCred, dataCustomer dataCust){ // [done] [clean]
+// {I.S : Terdefinisi nama customer X
+//  F.S : Data credit baru ditambahkan ke dalam list credit sebagai elemen terakhir
+//        kemudian hubungkan cust x dengan elemen credit baru}
+    adrCredit thisCredit = createElementCredit(Credits, dataCred);
+    insertLastCredit(Credits, thisCredit);
+    connectCreditToCustomer(Credits, Customers, dataCred, dataCust);
+} // (5)
+
+void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustomer dataCust){ // [done] [clean]
+// {I.S : Terdefinisi nama customer X
+//  F.S : Seluruh kartu kredit dari cust x akan ditampilkan}
+    int counter = 0;
+    adrCustomer thisCustomer;
+    adrCredit thisCredit;
+    thisCustomer = getCustomer(Customers, dataCust);    
+    if(thisCustomer==NULL){
+        cout<<"Customer tidak ditemukan\n";
+    }else{
+        thisCredit = first(Credits);
+        while(thisCredit != NULL){
+            if(child(thisCredit) != NULL && data(child(thisCredit)).name == dataCust.name){
+                counter++;
+                cout<<"Credit Name : "<<data(thisCredit).creditName<<"\n";
+                cout<<"Credit ID : "<<data(thisCredit).creditID<<"\n\n";
+            }
+            thisCredit = nextCredit(thisCredit);
+        }
+        if(counter == 0){
+            cout<<"Customer tidak memiliki kartu kredit\n";
+        }
+    }
+} // (7)
+
+void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer dataCust) { // [done] [clean]
+// {I.S : Terdefinisi data customer
+// {F.S : Menghapus seluruh credit card milik customer X dari list credit 
+//        kemudian menghapus customer X dari list customer}
+    adrCustomer thisCustomer = getCustomer(Customers, dataCust);
+    adrCustomer deletedCreditP;
+    if(thisCustomer == NULL){     
+        cout<<"Tidak bisa menghapus data customer! nama customer tidak ditemukan\n";
+    }else{
+        deleteAllCreditInCustomer(Credits, Customers, dataCust);
+        if(thisCustomer == first(Customers)){
+            deleteFirstCustomer(Customers, deletedCreditP);
+        }else if(nextCustomer(thisCustomer) == first(Customers)){
+            deleteLastCustomer(Customers, deletedCreditP);
+        }else{
+            deleteAfterCustomer(Customers, deletedCreditP, data(thisCustomer));
+        }
+    }
+} // (3)
+
+void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, dataCredit dataCred, dataCustomer dataCust){ // [done] [clean]
+// {I.S : Terdefinisi data credit Y dan data cust X
+//  F.S : Memutuskan relasi antara credit Y dan cust X}
+    adrCredit thisCredit = getCreditFromCustomer(Credits, Customers, dataCust);
+    if(thisCredit == NULL){
+        cout<<"Kartu kredit tidak terdaftar\n";
+    }else{
+        --data(child(thisCredit)).totalCredits;
+        child(thisCredit) = NULL;
+    }
+} // (10)
+
 void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ // [done] [clean]
 // {I.S : Terdefinisi list cust dan lust credit mungkin kosong
 //  F.S : Menampilkan data customer dengan jumlah kredit terbanyak beserta kartu kredit yang dimilikinya}
@@ -173,18 +191,3 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ /
         }while(thisCustomer != first(Customers));
     }
 } // (11)
-
-adrCredit getCredit(listCredit Credits, dataCredit dataCred){ // SLL [done] [clean]
-// {I.S : Terdefinisi data credit Y
-//  F.S : Mengembalikan address dari elemen credit Y jika ditemukan atau NULL jika tidak ditemukan}
-    adrCredit thisCredit = first(Credits);
-    while(thisCredit != NULL){
-        if(data(thisCredit).creditID == dataCred.creditID){
-            return thisCredit;
-        }else{
-            thisCredit = nextCredit(thisCredit);
-        }
-    }
-    return NULL;
-}
-// (extras)

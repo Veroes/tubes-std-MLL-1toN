@@ -1,109 +1,32 @@
 #include "MLL1toN.h"
-void insertLastCustomer(listCustomer &Customers, adrCustomer custP){ // CSLL [done] [clean]
-// {I.S : Pelanggan mungkin belum ada atau sudah ada
-//  F.S : Menambahkan pelanggan kedalam daftar pelanggan}
-    if(first(Customers) == NULL) {
-        first(Customers) = custP;
-        nextCustomer(custP) = first(Customers);
-    }else{
-        adrCustomer thisCustomer = first(Customers);
-        while(nextCustomer(thisCustomer) != first(Customers)){
-            thisCustomer = nextCustomer(thisCustomer);
-        }
-        nextCustomer(thisCustomer) = custP;
-        nextCustomer(custP) = first(Customers);
-    }
-} // 1
-
-void showCustomerData(listCustomer &Customers, dataCustomer dataCust){ // CSLL [done] [clean]
-// {I.S : Daftar pelanggan mungkin belum ada atau sudah ada
-//  F.S : Menampilkan data pelanggan X}
-    adrCustomer thisCustomer = getCustomer(Customers, dataCust);
-    if(thisCustomer != NULL){
-        cout<<"Nama\t\t: "<<data(thisCustomer).name<<"\n";
-        cout<<"Jenis Kelamin\t: "<<data(thisCustomer).gender<<"\n";
-        cout<<"Umur\t\t: "<<data(thisCustomer).age<<"\n";
-        cout<<"Total Credit\t: "<<data(thisCustomer).totalCredits<<"\n\n";
-    }else{
-        cout<<"Customer tidak terdaftar\n";      
-    }
-} // 2
-
-adrCredit getCreditInCustomer(listCredit Credits, dataCredit dataCred, dataCustomer dataCust){ // [done] [clean]
+void createListCredit(listCredit &Credits){ // SLL [done] [clean]
 // {I.S : -
-//  F.S : Mengembalikan address kartu kredit dari sebuah pelanggan}
-    adrCredit thisCredit = getCredit(Credits, dataCred);
-    if(data(child(thisCredit)).name == dataCust.name){
-        return thisCredit;
-    }
-    return NULL;
-} // 8
+//  F.S : Membuat daftar kredit}
+    first(Credits) = NULL;
+} // (14)
 
-void deleteAllCreditInCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer dataCust){ // [done] [clean]
-// {I.S : Terdaftar tiap kredit dari pelanggan atau tidak
-//  F.S : Menghapus tiap kredit yang dimiliki oleh pelanggan}
-    int counter;
-    adrCredit credP;
-    adrCredit thisCredit = first(Credits);
-    while(thisCredit != NULL){
-        if(data(child(thisCredit)).name == dataCust.name){
-            --data(child(thisCredit)).totalCredits;
-            disconnectCreditAndCustomer(Credits, Customers, data(thisCredit), dataCust);
-            if(thisCredit == first(Credits)){
-                deleteFirstCredit(Credits, credP);
-            }else if(nextCredit(thisCredit) == NULL){
-                deleteLastCredit(Credits, credP);
-            }else{
-                deleteAfterCredit(Credits, credP, data(thisCredit));
-            }
-            ++counter;
-            thisCredit = first(Credits);
-        }
-        thisCredit = nextCredit(thisCredit);
+adrCredit createElementCredit(listCredit &Credits, dataCredit dataCred) { // SLL [done] [clean]
+// {I.S : Masukkan berupa data kartu kredit
+//  F.S : Membuat elemen data kartu kredit tersebut}
+    adrCredit thisCredit = new elmCredit;
+    data(thisCredit) = dataCred;
+    nextCredit(thisCredit) = NULL;
+    return thisCredit;
+} // (14)
 
-    }
-    if(counter == 0 && first(Credits) == NULL){
-        cout<<"Tidak ada kartu kredit yang terdaftar\n";
-    }else if(counter == 0){
-        cout<<"Customer tidak terdaftar\n";
-    }else{
-        cout<<"Berhasil menghapus kartu kredit\n";
-    }
-} // 6
-
-adrCustomer getCustomerFromCredit(listCredit Credits, dataCredit cred) { // [done] [clean]
-// {I.S : -
-//  F.S : Mengembalikan address pelanggan dari daftar kredit}
-    adrCredit thisCredit = first(Credits);
-    while(thisCredit != NULL){
-        if(data(thisCredit).creditID == cred.creditID && child(thisCredit) != NULL){
-            return child(thisCredit);
-        }
-        thisCredit = nextCredit(thisCredit);
-    }
-    return NULL;
-} // (12)
-
-void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit dataCred, dataCustomer dataCust){ // [done] [clean]
-// {I.S : Kredit belum memiliki child (terkoneksi) dengan pelanggan atau daftar kredit kosong
-//  F.S : Melakukan konektivitas pelanggan dengan kartu kredit nya}
-    adrCredit findCredit = getCredit(Credits, dataCred);
-    adrCustomer thisCustuomer = getCustomer(Customers, dataCust);
-    if(findCredit == NULL){
-        adrCredit thisCredit = createElementCredit(Credits, dataCred);
-        insertLastCredit(Credits, thisCredit);
-    }
-    if(thisCustuomer != NULL){
+void insertLastCredit(listCredit &Credits, adrCredit credP){ // SLL [done] [clean]
+// {I.S : Daftar kredit mungkin ada atau kosong
+//  F.S : Menambahkan kartu kredit ke akhir daftar kredit}
+    if(first(Credits) == NULL){
+        first(Credits) = credP;
+    } else {
         adrCredit thisCredit = first(Credits);
-        while(thisCredit != NULL && data(thisCredit).creditID != dataCred.creditID){
+        while(nextCredit(thisCredit) != NULL){
             thisCredit = nextCredit(thisCredit);
         }
-        child(thisCredit) = thisCustuomer;
-        ++data(thisCustuomer).totalCredits;
-    }else{
-        cout<<"Customer tidak terdaftar\n";
+        nextCredit(thisCredit) = credP;
     }
-} // (9)
+} // (15)
 
 void deleteFirstCredit(listCredit &Credits, adrCredit &credP){ // SLL [done] [done]
 // {I.S Daftar kredit mungkin ada atau kosong
@@ -157,34 +80,108 @@ void deleteLastCredit(listCredit &Credits, adrCredit &credP){ // SLL [done] [cle
     }
 } // (13)
 
-void createListCredit(listCredit &Credits){ // SLL [done] [clean]
+void insertLastCustomer(listCustomer &Customers, adrCustomer custP){ // CSLL [done] [clean]
+// {I.S : Pelanggan mungkin belum ada atau sudah ada
+//  F.S : Menambahkan pelanggan kedalam daftar pelanggan}
+    if(first(Customers) == NULL) {
+        first(Customers) = custP;
+        nextCustomer(custP) = first(Customers);
+    }else{
+        adrCustomer thisCustomer = first(Customers);
+        while(nextCustomer(thisCustomer) != first(Customers)){
+            thisCustomer = nextCustomer(thisCustomer);
+        }
+        nextCustomer(thisCustomer) = custP;
+        nextCustomer(custP) = first(Customers);
+    }
+} // 1
+
+void showCustomerData(listCustomer &Customers, dataCustomer dataCust){ // CSLL [done] [clean]
+// {I.S : Daftar pelanggan mungkin belum ada atau sudah ada
+//  F.S : Menampilkan data pelanggan X}
+    adrCustomer thisCustomer = getCustomer(Customers, dataCust);
+    if(thisCustomer != NULL){
+        cout<<"Nama\t\t: "<<data(thisCustomer).name<<"\n";
+        cout<<"NIK\t\t: "<<data(thisCustomer).NIK<<"\n";
+        cout<<"Jenis Kelamin\t: "<<data(thisCustomer).gender<<"\n";
+        cout<<"Umur\t\t: "<<data(thisCustomer).age<<"\n";
+        cout<<"Total Credit\t: "<<data(thisCustomer).totalCredits<<"\n\n";
+    }else{
+        cout<<"Customer tidak terdaftar\n";      
+    }
+} // 2
+
+adrCredit getCreditFromCustomer(listCredit Credits, listCustomer Customers, dataCustomer dataCust){ // [done] [clean]
 // {I.S : -
-//  F.S : Membuat daftar kredit}
-    first(Credits) = NULL;
-} // (14)
-
-adrCredit createElementCredit(listCredit &Credits, dataCredit dataCred) { // SLL [done] [clean]
-// {I.S : Masukkan berupa data kartu kredit
-//  F.S : Membuat elemen data kartu kredit tersebut}
-    adrCredit thisCredit = new elmCredit;
-    data(thisCredit) = dataCred;
-    nextCredit(thisCredit) = NULL;
-    return thisCredit;
-} // (14)
-
-void insertLastCredit(listCredit &Credits, adrCredit credP){ // SLL [done] [clean]
-// {I.S : Daftar kredit mungkin ada atau kosong
-//  F.S : Menambahkan kartu kredit ke akhir daftar kredit}
-    if(first(Credits) == NULL){
-        first(Credits) = credP;
-    } else {
-        adrCredit thisCredit = first(Credits);
-        while(nextCredit(thisCredit) != NULL){
+//  F.S : Mengembalikan address kartu kredit dari sebuah pelanggan}
+    adrCredit thisCredit = first(Credits);
+    adrCustomer foundCustomer = getCustomer(Customers, dataCust);
+    cout<<"test";
+    while(thisCredit != NULL){
+        if(child(thisCredit) == foundCustomer){
+            return thisCredit;
+        }else{
             thisCredit = nextCredit(thisCredit);
         }
-        nextCredit(thisCredit) = credP;
     }
-} // (15)
+    return NULL;
+} // 8
+
+adrCustomer getCustomerFromCredit(listCredit Credits, listCustomer Customers, dataCredit dataCred) { // [done] [clean]
+// {I.S : -
+//  F.S : Mengembalikan address pelanggan dari daftar kredit}
+    adrCredit foundCredit = getCredit(Credits, dataCred);
+    if(foundCredit == NULL || child(foundCredit) == NULL){
+        return NULL;
+    }else{
+        return child(foundCredit);
+    }
+} // (12)
+
+void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataCredit dataCred, dataCustomer dataCust){ // [done] [clean]
+// {I.S : Kredit belum memiliki child (terkoneksi) dengan pelanggan atau daftar kredit kosong
+//  F.S : Melakukan konektivitas pelanggan dengan kartu kredit nya}
+    adrCredit foundCredit = getCredit(Credits, dataCred);
+    adrCustomer foundCustuomer = getCustomer(Customers, dataCust);
+    if(foundCredit == NULL && foundCustuomer != NULL){
+        cout<<"Masukkan tidak terdaftar pada kredit\nMenambahkan kartu baru : SUCCESS\n";
+        adrCredit thisCredit = createElementCredit(Credits, dataCred);
+        insertLastCredit(Credits, thisCredit);
+        child(thisCredit) = foundCustuomer;
+    }else if(foundCredit != NULL && foundCustuomer != NULL){
+        child(foundCredit) = foundCustuomer;
+        ++data(foundCustuomer).totalCredits;
+    }else{
+        cout<<"Customer tidak terdaftar\n";
+    }
+} // (9)
+
+void deleteAllCreditInCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer dataCust){ // [done] [clean]
+// {I.S : Terdaftar tiap kredit dari pelanggan atau tidak
+//  F.S : Menghapus tiap kredit yang dimiliki oleh pelanggan}
+    int counter;
+    adrCredit credP;
+    adrCredit foundCredit = getCreditFromCustomer(Credits, Customers, dataCust);
+    while(foundCredit != NULL){
+            disconnectCreditAndCustomer(Credits, Customers, data(foundCredit), dataCust);
+            if(foundCredit == first(Credits)){
+                deleteFirstCredit(Credits, credP);
+            }else if(nextCredit(foundCredit) == NULL){
+                deleteLastCredit(Credits, credP);
+            }else{
+                deleteAfterCredit(Credits, credP, data(foundCredit));
+            }
+            ++counter;
+            foundCredit = getCreditFromCustomer(Credits, Customers, dataCust);
+        }
+    if(counter == 0 && first(Credits) == NULL){
+        cout<<"Tidak ada kartu kredit yang terdaftar\n";
+    }else if(counter == 0){
+        cout<<"Customer tidak terdaftar\n";
+    }else{
+        cout<<"Berhasil menghapus kartu kredit\n";
+    }
+} // 6
 
 void menu(int &command){ // [done] [clean]
 // {I.S : -
@@ -205,9 +202,10 @@ void menu(int &command){ // [done] [clean]
     cout<<"Masukan Angka : ";
     command = validateIntInput(command);
 }
+
 int validateIntInput(int x){ // [done] [clean]
 // {I.S : Masukkan input bisa bernilai integer atau non-integer
-//  F.S : Memasitkan bahwa input nilai selalu integer}
+//  F.S : Memastikan bahwa input nilai selalu integer}
     while(true){
         cin>>x;
         if(!cin){
