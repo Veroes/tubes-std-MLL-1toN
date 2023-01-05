@@ -70,7 +70,7 @@ adrCustomer getCustomer(listCustomer Customers, dataCustomer dataCust){ // CSLL 
         return NULL;
     }else{
         do{
-            if(data(thisCustomer).name == dataCust.name && data(thisCustomer).NIK == dataCust.NIK){
+            if(data(thisCustomer).NIK == dataCust.NIK){
                 return thisCustomer;
             }else{
                 thisCustomer = nextCustomer(thisCustomer);

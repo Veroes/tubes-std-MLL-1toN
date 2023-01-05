@@ -116,7 +116,6 @@ adrCredit getCreditFromCustomer(listCredit Credits, listCustomer Customers, data
 //  F.S : Mengembalikan address kartu kredit dari sebuah pelanggan}
     adrCredit thisCredit = first(Credits);
     adrCustomer foundCustomer = getCustomer(Customers, dataCust);
-    cout<<"test";
     while(thisCredit != NULL){
         if(child(thisCredit) == foundCustomer){
             return thisCredit;
@@ -147,6 +146,7 @@ void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataC
         cout<<"Masukkan tidak terdaftar pada kredit\nMenambahkan kartu baru : SUCCESS\n";
         adrCredit thisCredit = createElementCredit(Credits, dataCred);
         insertLastCredit(Credits, thisCredit);
+        ++data(foundCustuomer).totalCredits;
         child(thisCredit) = foundCustuomer;
     }else if(foundCredit != NULL && foundCustuomer != NULL){
         child(foundCredit) = foundCustuomer;

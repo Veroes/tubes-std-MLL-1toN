@@ -29,7 +29,7 @@ int main() {
                     cin>>dataCust.gender;
                     custP = getCustomer(Customers, dataCust);                    
                     if(custP != NULL){ // or if(getCustomer(Customers, dataCust) != NULL){...}
-                        cout<<"customer sudah ada dalam list\n";
+                        cout<<"customer/NIK sudah terdaftar\n";
                     }else{
                         custP = createElementCustomer(Customers, dataCust);
                         insertLastCustomer(Customers, custP);
@@ -149,7 +149,7 @@ int main() {
                     cout<<"Masukkan nomor rekening : ";
                     cin>>dataCred.creditID;
                     credP = getCredit(Credits, dataCred);
-                    if(credP != NULL){
+                    if(credP != NULL && child(credP) == custP){
                         cout<<"\n";
                         cout<<"Data customer dengan kredit "<<dataCred.creditName
                         <<" dan nomor rekening "<<dataCred.creditID<<" : \n";
