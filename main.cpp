@@ -47,12 +47,11 @@ int main() {
                 cout<<"Masukan NIK : ";
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
-                if(custP != NULL){
+                if(custP != NULL && data(custP).name == dataCust.name){
                     showCustomerData(Customers, dataCust);
                 }else{
                     cout<<"Masukkan Nama/NIK tidak terdaftar\n";
                 }
-                
                 break;
             }
             case 3:{ // Menghapus customer tertentu [done] [clean]

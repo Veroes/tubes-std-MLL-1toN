@@ -164,7 +164,7 @@ void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, d
 void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ // [done] [clean]
 // {I.S : Terdefinisi list cust dan lust credit mungkin kosong
 //  F.S : Menampilkan data customer dengan jumlah kredit terbanyak beserta kartu kredit yang dimilikinya}
-    if(first(Customers) == NULL){
+    if(first(Credits) == NULL){
         cout<<"Daftar Customer kosong\n";
     }else{
         adrCustomer thisCustomer = first(Customers);
