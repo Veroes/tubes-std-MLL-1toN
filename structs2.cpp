@@ -5,11 +5,11 @@ void createlistCustomer(listCustomer &Customers){ // CSLL [done] [clean]
     first(Customers) = NULL; 
 } // (16)
 
-adrCustomer createElementCustomer(listCustomer &Customers, dataCustomer data){ // [done] [clean]
+adrCustomer createElementCustomer(listCustomer &Customers, dataCustomer dataCust){ // [done] [clean]
 // {I.S : Masukkan berupa data customer
 //  F.S : Membuat elemen data customer tersebut}
     adrCustomer thisCredit = new elmCustomer;
-    data(thisCredit) = data;
+    data(thisCredit) = dataCust;
     nextCustomer(thisCredit) = NULL;
     return thisCredit;
 } // (16)
@@ -34,13 +34,13 @@ void deleteFirstCustomer(listCustomer &Customers, adrCustomer &custP){ // CSLL [
     }
 } // (17)
 
-void deleteAfterCustomer(listCustomer &Customers, adrCustomer &custP, dataCustomer cust){ // CSLL [done] [clean]
+void deleteAfterCustomer(listCustomer &Customers, adrCustomer &custP, dataCustomer dataCust){ // CSLL [done] [clean]
 // {I.S : List tidak kosong, cust adalah dataCustomer yang akan dihapus
 //  F.S : custP menyimpan elemen yang dihapus}
     adrCustomer thisCustomer;
     if(nextCustomer(first(Customers)) != first(Customers)){
         thisCustomer = first(Customers);
-        while(data(nextCustomer(thisCustomer)).name != cust.name){
+        while(data(nextCustomer(thisCustomer)).name != dataCust.name && data(nextCustomer(thisCustomer)).NIK != dataCust.NIK){
             thisCustomer = nextCustomer(thisCustomer);
         }
         custP = nextCustomer(thisCustomer);
