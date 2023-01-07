@@ -24,7 +24,7 @@ int main() {
                     cout<<"Masukkan NIK : ";
                     cin>>dataCust.NIK;
                     cout<<"Masukkan umur : ";
-                    cin>>dataCust.age;
+                    dataCust.age = validateIntInput(dataCust.age);
                     cout<<"Masukkan jenis kelamin : ";
                     cin>>dataCust.gender;
                     custP = getCustomer(Customers, dataCust);                    
@@ -47,10 +47,10 @@ int main() {
                 cout<<"Masukan NIK : ";
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
-                if(custP != NULL && data(custP).name == dataCust.name){
+                if(custP != NULL){
                     showCustomerData(Customers, dataCust);
                 }else{
-                    cout<<"Masukkan Nama/NIK tidak terdaftar\n";
+                    cout<<"Customer tidak terdaftar\n";
                 }
                 break;
             }
@@ -73,7 +73,7 @@ int main() {
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
                 if(custP == NULL){ // or if(getCustomer(Customers, dataCust) != NULL){...}
-                    cout<<"Data customer tidak ditemukan\n";
+                    cout<<"Customer tidak ditemukan\n";
                 }else{
                     cout<<"Customer ditemukan\n\n";
                     cout<<"Nama\t\t: "<<data(custP).name<<"\n";
@@ -94,20 +94,20 @@ int main() {
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
                 if(custP != NULL){ // or if(getCustomer(Customers, dataCust) != NULL){...}
-                    cout<<"Nama customer berhasil ditemukan\n";
+                    cout<<"Customer berhasil ditemukan\n";
                     cout<<"Masukkan nama kredit : ";
                     cin>>dataCred.creditName;
                     cout<<"Masukan nomor rekening : ";
                     cin>>dataCred.creditID;
                     adrCredit credP = getCredit(Credits, dataCred);
                     if(credP != NULL){
-                        cout<<"Data kredit sudah ada dalam list\n";
+                        cout<<"Kartu kredit sudah ada dalam list\n";
                     }else{
                         addCreditToCustomer(Credits, Customers, dataCred, dataCust);
                         cout<<"Kartu kredit berhasil ditambahkan\n";
                     }
                 }else{
-                    cout<<"Nama customer tidak ditemukan\n";
+                    cout<<"Customer tidak ditemukan\n";
                 }
                 cout<<"\n";
             break;
@@ -142,7 +142,7 @@ int main() {
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
                 if(custP != NULL){ // or if(getCustomer(Customers, dataCust) != NULL){...}
-                    cout<<"Nama customer berhasil ditemukan\n";
+                    cout<<"Customer berhasil ditemukan\n";
                     cout<<"Masukkan nama kredit : ";
                     cin>>dataCred.creditName;
                     cout<<"Masukkan nomor rekening : ";
@@ -157,7 +157,7 @@ int main() {
                         cout<<"Kartu kredit tidak ditemukan";
                     }
                 }else{
-                    cout<<"Nama customer tidak ditemukan\n";
+                    cout<<"Customer tidak ditemukan\n";
                 }
                 cout<<"\n";
                 break;
@@ -172,7 +172,7 @@ int main() {
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
                 if(custP != NULL){ // or if(getCustomer(Customers, dataCust) != NULL){...}
-                    cout<<"Nama customer berhasil ditemukan\n";
+                    cout<<"Customer berhasil ditemukan\n";
                     cout<<"Masukkan nama kredit : ";
                     cin>>dataCred.creditName;
                     cout<<"Masukan nomor rekening : ";
@@ -180,7 +180,7 @@ int main() {
                     connectCreditToCustomer(Credits, Customers, dataCred, dataCust);
                     cout<<"Berhasil menghubungkan kartu kredit dengan customer\n";
                 }else{
-                    cout<<"Nama customer tidak ditemukan\n";
+                    cout<<"Customer tidak ditemukan\n";
                 }
                 cout<<"\n";
                 break;
@@ -195,7 +195,7 @@ int main() {
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
                 if(custP != NULL){ // // or if(getCustomer(Customers, dataCust) != NULL){...}
-                    cout<<"Nama customer berhasil ditemukan\n";
+                    cout<<"Customer berhasil ditemukan\n";
                     if(data(custP).totalCredits > 0){
                         showCustomerCredit(Credits, Customers, dataCust);
                         cout<<"Masukkan nama kredit : ";
@@ -213,7 +213,7 @@ int main() {
                         cout<<"Customer tidak memiliki kartu kredit\n";
                     }
                 }else{
-                    cout<<"Nama customer tidak ditemukan\n";
+                    cout<<"Customer tidak ditemukan\n";
                 }
                 cout<<"\n";
                 break;
@@ -233,7 +233,7 @@ int main() {
                 cin>>dataCred.creditID;
                 credP = getCredit(Credits, dataCred);
                 if(credP == NULL){ // or if(getCredit(Credits, dataCred) != NULL){...}
-                        cout<<"Data kredit tidak ditemukan/tidak terdaftar\n";
+                        cout<<"Kredit tidak ditemukan/tidak terdaftar\n";
                 }else{
                     custP = getCustomerFromCredit(Credits, Customers, dataCred);
                     if(custP == NULL){

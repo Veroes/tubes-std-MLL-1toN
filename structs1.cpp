@@ -149,6 +149,7 @@ void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataC
         ++data(foundCustuomer).totalCredits;
         child(thisCredit) = foundCustuomer;
     }else if(foundCredit != NULL && foundCustuomer != NULL){
+        --data(child(foundCredit)).totalCredits;
         child(foundCredit) = foundCustuomer;
         ++data(foundCustuomer).totalCredits;
     }else{

@@ -63,7 +63,7 @@ void deleteLastCustomer(listCustomer &Customers, adrCustomer &custP) { // CSLL [
 } // (17)
 
 adrCustomer getCustomer(listCustomer Customers, dataCustomer dataCust){ // CSLL [done] [clean]
-// {I.S : Terdefinisi nama customer X
+// {I.S : Terdefinisi customer X
 //  F.S : Mengembalikan address dari elemen cust X jika ditemukan atau NULL jika tidak ditemukan}
     adrCustomer thisCustomer = first(Customers);
     if(thisCustomer == NULL){
@@ -165,7 +165,7 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ /
 // {I.S : Terdefinisi list cust dan lust credit mungkin kosong
 //  F.S : Menampilkan data customer dengan jumlah kredit terbanyak beserta kartu kredit yang dimilikinya}
     if(first(Credits) == NULL){
-        cout<<"Daftar Customer kosong\n";
+        cout<<"Daftar customer kosong/tidak ada kartu kredit yang terdaftar\n";
     }else{
         adrCustomer thisCustomer = first(Customers);
         adrCustomer highestCustomer;
