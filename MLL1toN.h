@@ -113,6 +113,8 @@ adrCustomer getCustomerFromCredit(listCredit Credits, listCustomer Customers, da
 // find credit
 adrCredit getCredit(listCredit Credits, dataCredit dataCred);
 
+// find NIK
+bool getNIK(listCustomer Customers, dataCustomer dataCust);
 
 // extra function and procedure
 // credit delete [single linked list]

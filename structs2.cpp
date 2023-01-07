@@ -70,7 +70,7 @@ adrCustomer getCustomer(listCustomer Customers, dataCustomer dataCust){ // CSLL 
         return NULL;
     }else{
         do{
-            if(data(thisCustomer).NIK == dataCust.NIK){
+            if(data(thisCustomer).NIK == dataCust.NIK && data(thisCustomer).name == dataCust.name){
                 return thisCustomer;
             }else{
                 thisCustomer = nextCustomer(thisCustomer);
@@ -162,14 +162,14 @@ void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, d
 } // (10)
 
 void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ // [done] [clean]
-// {I.S : Terdefinisi list cust dan lust credit mungkin kosong
+// {I.S : Terdefinisi list cust dan list credit, mungkin kosong
 //  F.S : Menampilkan data customer dengan jumlah kredit terbanyak beserta kartu kredit yang dimilikinya}
-    if(first(Credits) == NULL){
-        cout<<"Daftar customer kosong/tidak ada kartu kredit yang terdaftar\n";
+    int highestCredits = 0;
+    if(first(Customers) == NULL){
+            cout<<"Daftar customer kosong/tidak ada kartu kredit yang terdaftar\n";
     }else{
-        adrCustomer thisCustomer = first(Customers);
         adrCustomer highestCustomer;
-        int highestCredits = 0;
+        adrCustomer thisCustomer = first(Customers);
         do{
             if(data(thisCustomer).totalCredits > highestCredits){
                 highestCredits = data(thisCustomer).totalCredits;
@@ -177,17 +177,41 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ /
             }
             thisCustomer = nextCustomer(thisCustomer);
         }while(thisCustomer != first(Customers));
-        cout<<"============= HIGHEST CUSTOMER CREDITS DATA ==============="<<endl;
-        showCustomerData(Customers, data(highestCustomer));
-        showCustomerCredit(Credits, Customers, data(highestCustomer));
-    // {Menampilkan pelanggan yang total kredit sama banyak dengan highestCustomer jika ada}
-        thisCustomer = first(Customers);
-        do{
-            if(thisCustomer != highestCustomer && data(thisCustomer).totalCredits == highestCredits){
-                showCustomerData(Customers, data(thisCustomer));
-                showCustomerCredit(Credits, Customers, data(thisCustomer));
-            }
-            thisCustomer = nextCustomer(thisCustomer);
-        }while(thisCustomer != first(Customers));
-    }
+
+        if(highestCredits == 0){
+            cout<<"Tidak ada kredit yang terdaftar\n";
+        }else{
+            cout<<"============= HIGHEST CUSTOMER CREDITS DATA ==============="<<endl;
+            showCustomerData(Customers, data(highestCustomer));
+            showCustomerCredit(Credits, Customers, data(highestCustomer));
+        // {Menampilkan pelanggan yang total kredit sama banyak dengan highestCustomer jika ada}
+            thisCustomer = first(Customers);
+            do{
+                if(thisCustomer != highestCustomer && data(thisCustomer).totalCredits == highestCredits){
+                    showCustomerData(Customers, data(thisCustomer));
+                    showCustomerCredit(Credits, Customers, data(thisCustomer));
+                }
+                thisCustomer = nextCustomer(thisCustomer);
+            }while(thisCustomer != first(Customers));
+        }
+    }    
 } // (11)
+
+bool getNIK(listCustomer Customers, dataCustomer dataCust){ // CSLL [done] [clean]
+// {I.S : Terdefinisi NIK
+//  F.S : Mengembalikan true jika nik ditemukan}
+    adrCustomer thisCustomer = first(Customers);
+    if(thisCustomer == NULL){
+        return NULL;
+    }else{
+        do{
+            if(data(thisCustomer).NIK == dataCust.NIK){
+                return true;
+            }else{
+                thisCustomer = nextCustomer(thisCustomer);
+            }
+        }while(thisCustomer != first(Customers));
+        return NULL;
+    }
+}
+// (4)
