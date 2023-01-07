@@ -15,7 +15,7 @@ struct dataCredit {
 };
 struct dataCustomer {
     string name, gender;
-    int age;
+    int age, NIK;
     int totalCredits = 0;
 };
 // Credit and Customer pointers
@@ -87,7 +87,7 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
 
 // find credit from customer
 // mencari kartu kredit Y dari customer X
-adrCredit getCreditInCustomer(listCredit Credits, dataCredit dataCred, dataCustomer dataCust); // (8)
+adrCredit getCreditFromCustomer(listCredit Credits, listCustomer Customers, dataCustomer dataCust); // (8)
 
 
 // connect credit to customer
@@ -107,12 +107,14 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers); /
 
 // find customer name from the credit cards identity
 // Mencari nama customer dari kartu kredit Y 
-adrCustomer getCustomerFromCredit(listCredit Credits, dataCredit dataCred); // (12)
+adrCustomer getCustomerFromCredit(listCredit Credits, listCustomer Customers, dataCredit dataCred); // (12)
 
 
 // find credit
 adrCredit getCredit(listCredit Credits, dataCredit dataCred);
 
+// find NIK
+bool getNIK(listCustomer Customers, dataCustomer dataCust);
 
 // extra function and procedure
 // credit delete [single linked list]
