@@ -116,7 +116,7 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
     }else{
         thisCredit = first(Credits);
         while(thisCredit != NULL){
-            if(child(thisCredit) != NULL && data(child(thisCredit)).name == dataCust.name){
+            if(child(thisCredit) == thisCustomer){
                 counter++;
                 cout<<"Credit Name : "<<data(thisCredit).creditName<<"\n";
                 cout<<"Credit ID : "<<data(thisCredit).creditID<<"\n\n";
@@ -152,24 +152,25 @@ void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer d
 void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, dataCredit dataCred, dataCustomer dataCust){ // [done] [clean]
 // {I.S : Terdefinisi data credit Y dan data cust X
 //  F.S : Memutuskan relasi antara credit Y dan cust X}
-    adrCredit thisCredit = getCreditFromCustomer(Credits, Customers, dataCust);
-    if(thisCredit == NULL){
+    adrCustomer findCustomer = getCustomer(Customers, dataCust);
+    adrCredit findCredit = getCredit(Credits, dataCred);
+    if(findCredit == NULL){
         cout<<"Kartu kredit tidak terdaftar\n";
     }else{
-        --data(child(thisCredit)).totalCredits;
-        child(thisCredit) = NULL;
+        --data(child(findCredit)).totalCredits;
+        child(findCredit) = NULL;
     }
 } // (10)
 
 void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ // [done] [clean]
 // {I.S : Terdefinisi list cust dan list credit, mungkin kosong
 //  F.S : Menampilkan data customer dengan jumlah kredit terbanyak beserta kartu kredit yang dimilikinya}
-    int highestCredits = 0;
     if(first(Customers) == NULL){
             cout<<"Daftar customer kosong/tidak ada kartu kredit yang terdaftar\n";
     }else{
         adrCustomer highestCustomer;
         adrCustomer thisCustomer = first(Customers);
+        int highestCredits = 0;
         do{
             if(data(thisCustomer).totalCredits > highestCredits){
                 highestCredits = data(thisCustomer).totalCredits;

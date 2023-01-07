@@ -148,8 +148,11 @@ void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataC
         insertLastCredit(Credits, thisCredit);
         ++data(foundCustuomer).totalCredits;
         child(thisCredit) = foundCustuomer;
-    }else if(foundCredit != NULL && foundCustuomer != NULL){
+    }else if(child(foundCredit) != NULL && foundCustuomer != NULL){
         --data(child(foundCredit)).totalCredits;
+        child(foundCredit) = foundCustuomer;
+        ++data(foundCustuomer).totalCredits;
+    }else if(child(foundCredit) == NULL){
         child(foundCredit) = foundCustuomer;
         ++data(foundCustuomer).totalCredits;
     }else{
@@ -163,6 +166,7 @@ void deleteAllCreditInCustomer(listCredit &Credits, listCustomer &Customers, dat
     int counter;
     adrCredit credP;
     adrCredit foundCredit = getCreditFromCustomer(Credits, Customers, dataCust);
+    adrCustomer foundCustomer = getCustomer(Customers, dataCust);
     while(foundCredit != NULL){
             disconnectCreditAndCustomer(Credits, Customers, data(foundCredit), dataCust);
             if(foundCredit == first(Credits)){
@@ -175,9 +179,9 @@ void deleteAllCreditInCustomer(listCredit &Credits, listCustomer &Customers, dat
             ++counter;
             foundCredit = getCreditFromCustomer(Credits, Customers, dataCust);
         }
-    if(counter == 0 && first(Credits) == NULL){
+    if(counter == 0 && foundCredit == NULL && foundCustomer == NULL){
         cout<<"Tidak ada kartu kredit yang terdaftar\n";
-    }else if(counter == 0){
+    }else if(counter == 0 && foundCustomer == NULL){
         cout<<"Customer tidak terdaftar\n";
     }else{
         cout<<"Berhasil menghapus kartu kredit\n";

@@ -44,7 +44,7 @@ int main() {
                 system("cls");
                 cout<<"Masukan nama customer : ";
                 cin>>dataCust.name;
-                cout<<"Masukan NIK : ";
+                cout<<"Masukan NIK customer: ";
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
                 if(custP != NULL){
@@ -52,7 +52,6 @@ int main() {
                 }else{
                     cout<<"Masukkan Nama/NIK tidak terdaftar\n";
                 }
-                
                 break;
             }
             case 3:{ // Menghapus customer tertentu [done] [clean]
@@ -108,7 +107,7 @@ int main() {
                         cout<<"Kartu kredit berhasil ditambahkan\n";
                     }
                 }else{
-                    cout<<"Nama customer tidak ditemukan\n";
+                    cout<<"Customer tidak ditemukan\n";
                 }
                 cout<<"\n";
             break;
