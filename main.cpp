@@ -37,6 +37,7 @@ int main() {
                         insertLastCustomer(Customers, custP);
                         cout<<"\n--- Data Customer Berhasil Ditambahkan!\n";
                     }
+                    cout<<"=============================================================\n";
                     cout<<"\n";
                     cout<<"=============================================================\n\n";
                 }
@@ -45,6 +46,7 @@ int main() {
             case 2:{ // Menampilkan data customer X [done] [clean]
                 dataCustomer dataCust;
                 system("cls");
+                cout<<"\n";
                 cout<<"\t\t\t======[[ 2. Menampilkan data customer X ]]======\n\n";
                 cout<<"--- Masukkan Nama\t\t: ";
                 cin>>dataCust.name;
@@ -57,8 +59,9 @@ int main() {
                     cout<<"--- Data Customer\n";
                     showCustomerData(Customers, dataCust);
                 }else{
-                    cout<<"--- Nama/NIK tidak terdaftar!\n";
+                    cout<<"\n--- Nama/NIK tidak terdaftar!\n";
                 }
+                cout<<"\n";
                 break;
             }
             case 3:{ // Menghapus customer tertentu [done] [clean]
@@ -120,7 +123,7 @@ int main() {
                     cin>>dataCred.creditID;
                     adrCredit credP = getCredit(Credits, dataCred);
                     if(credP != NULL){
-                        cout<<"\n--- Data Kredit Sudah Ada Dalam List!\n";
+                        cout<<"\n--- Data Kredit sudah ada dalam List!\n";
                     }else{
                         addCreditToCustomer(Credits, Customers, dataCred, dataCust);
                         cout<<"\n--- Kartu Kredit Berhasil Ditambahkan!\n";
@@ -146,7 +149,8 @@ int main() {
                 }else{
                     cout<<"\n--- Customer Tidak Terdaftar!\n";
                 }
-                break;  
+                break;
+                cout<<"\n";
             }
             case 7: { // Menampilkan seluruh kartu kredit dari customer X [done] [clean]
                 dataCustomer dataCust;
@@ -230,7 +234,7 @@ int main() {
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
                 if(custP != NULL){ // // or if(getCustomer(Customers, dataCust) != NULL){...}
-                    cout<<"Nama customer berhasil ditemukan\n";
+                    cout<<"\n";
                     if(data(custP).totalCredits > 0){
                         cout<<"===============================================\n\n";
                         showCustomerCredit(Credits, Customers, dataCust);

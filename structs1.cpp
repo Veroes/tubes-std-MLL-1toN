@@ -144,7 +144,7 @@ void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataC
     adrCustomer foundCustuomer = getCustomer(Customers, dataCust);
     if(foundCredit == NULL && foundCustuomer != NULL){
         cout<<"\n";
-        cout<<"--- Data Kartu Kredit belum terdaftar!\n     Menambahkan Data Kartu Kredit baru : SUCCESS\n";
+        cout<<"--- Data Kartu Kredit Belum Terdaftar!\n    Menambahkan Data Kartu Kredit Baru : SUCCESS\n";
         adrCredit thisCredit = createElementCredit(Credits, dataCred);
         insertLastCredit(Credits, thisCredit);
         ++data(foundCustuomer).totalCredits;
@@ -179,11 +179,12 @@ void deleteAllCreditInCustomer(listCredit &Credits, listCustomer &Customers, dat
             foundCredit = getCreditFromCustomer(Credits, Customers, dataCust);
         }
     if(foundCustomer == NULL){
-        cout<<"Customer tidak terdaftar\n";
+        cout<<"\n--- Customer Tidak Terdaftar!\n";
+        
     }else if(foundCredit == NULL){
-        cout<<"Tidak ada kartu kredit yang terdaftar\n";
+        cout<<"\n--- Tidak Ada Kartu Kredit Yang Terdaftar!\n";
     }else{
-        cout<<"Berhasil menghapus kartu kredit\n";
+        cout<<"\n--- Berhasil Menghapus Kartu Kredit!\n";
     }
 } // 6
 
