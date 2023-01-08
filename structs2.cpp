@@ -124,7 +124,7 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
             thisCredit = nextCredit(thisCredit);
         }
         if(counter == 0){
-            cout<<"--- Customer Tidak Memiliki Kartu Kredit\n";
+            cout<<"--- Customer tidak memiliki kartu kredit\n";
         }
     }
 } // (7)
@@ -135,21 +135,18 @@ void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer d
 //        kemudian menghapus customer X dari list customer}
     adrCustomer thisCustomer = getCustomer(Customers, dataCust);
     adrCustomer deletedCreditP;
-    if(thisCustomer == NULL){    
-        cout<<"\n"; 
-        cout<<"--- Tidak Dapat Menghapus Data Customer! Data Customer Tidak Ditemukan\n";
+    if(thisCustomer == NULL){     
+        cout<<"--- Tidak bisa menghapus Data Customer! Nama Customer tidak ditemukan\n";
     }else{
         deleteAllCreditInCustomer(Credits, Customers, dataCust);
         if(thisCustomer == first(Customers)){
             deleteFirstCustomer(Customers, deletedCreditP);
-            cout<<"--- Berhasil Menghapus Data Customer\n";
         }else if(nextCustomer(thisCustomer) == first(Customers)){
             deleteLastCustomer(Customers, deletedCreditP);
-            cout<<"--- Berhasil Menghapus Data Customer!\n";
         }else{
             deleteAfterCustomer(Customers, deletedCreditP, data(thisCustomer));
-            cout<<"--- Berhasil Menghapus Data Customer\n";
         }
+        cout<<"--- Berhasil menghapus data customer\n";
     }
 } // (3)
 
@@ -159,8 +156,7 @@ void disconnectCreditAndCustomer(listCredit &Credits, listCustomer &Customers, d
     adrCustomer findCustomer = getCustomer(Customers, dataCust);
     adrCredit findCredit = getCredit(Credits, dataCred);
     if(findCredit == NULL){
-        cout<<"\n";
-        cout<<"--- Kartu Kredit Tidak Terdaftar!\n";
+        cout<<"\n--- Kartu Kredit tidak terdaftar!\n";
     }else{
         --data(child(findCredit)).totalCredits;
         child(findCredit) = NULL;
@@ -171,7 +167,7 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ /
 // {I.S : Terdefinisi list cust dan list credit, mungkin kosong
 //  F.S : Menampilkan data customer dengan jumlah kredit terbanyak beserta kartu kredit yang dimilikinya}
     if(first(Customers) == NULL){
-        cout<<"--- Daftar Customer Kosong/Tidak Ada Kartu Kredit Yang Terdaftar!\n";
+            cout<<"--- Daftar Customer kosong/tidak ada Kartu Kredit yang terdaftar!\n";
     }else{
         adrCustomer highestCustomer;
         adrCustomer thisCustomer = first(Customers);
@@ -185,29 +181,23 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ /
         }while(thisCustomer != first(Customers));
 
         if(highestCredits == 0){
-            cout<<"\n";
-            cout<<"--- Tidak Ada Kartu Kredit Yang Terdaftar!\n";
+            cout<<"--- Tidak ada Kartu Kredit yang terdaftar!\n";
         }else{
-            cout<<"--- Total Credit tertinggi : "<<highestCredits<<endl;
-            cout<<"\n";
-            cout<<"--- Data Customer : "<<endl;
+            cout<<"--- Total Kredit Tertinggi : "<<highestCredits<<endl;
+            cout<<"\n--- Data Customer : "<<endl;
             showCustomerData(Customers, data(highestCustomer));
             showCustomerCredit(Credits, Customers, data(highestCustomer));
         // {Menampilkan pelanggan yang total kredit sama banyak dengan highestCustomer jika ada}
             thisCustomer = first(Customers);
             do{
                 if(thisCustomer != highestCustomer && data(thisCustomer).totalCredits == highestCredits){
-                    cout<<"\n";
-                    cout<<"==================================================================\n";
-                    cout<<"\n";
+                    cout<<"\n==================================================================\n\n";
                     cout<<"--- Data Customer : "<<endl;
                     showCustomerData(Customers, data(thisCustomer));
                     showCustomerCredit(Credits, Customers, data(thisCustomer));
-                   
                 }
                 thisCustomer = nextCustomer(thisCustomer);
             }while(thisCustomer != first(Customers));
-            
         }
     }    
 } // (11)

@@ -18,7 +18,7 @@ int main() {
                 system("cls");
                 cout<<"\n";
                 cout<<"\t\t\t======[[ 1. Menambahkan Customer Baru ]]======\n\n\n";
-                cout<<"--- Masukkan berapa banyak data customer yang ingin di input : ";
+                cout<<"--- Masukkan berapa banyak Data Customer yang ingin di input : ";
                 iCust = validateIntInput(iCust);
                 for(int i = 0 ; i < iCust ; i++) {
                     cout<<"--- Masukkan Nama\t\t: ";
@@ -31,18 +31,13 @@ int main() {
                     cin>>dataCust.gender;
                     bool findNIK = getNIK(Customers, dataCust);
                     if(findNIK == true){
-                        cout<<"\n";
-                        cout<<"--- NIK Sudah Terdaftar!\n";
-                        cout<<"\n";
+                        cout<<"\n--- NIK Sudah Terdaftar!\n\n";
                     }else{
                         custP = createElementCustomer(Customers, dataCust);
                         insertLastCustomer(Customers, custP);
-                        cout<<"\n";
-                        cout<<"--- Data Customer Berhasil Ditambahkan!\n";
-                        cout<<"\n";
+                        cout<<"\n--- Data Customer Berhasil Ditambahkan!\n";
                     }
-                    cout<<"=============================================================\n";
-                    cout<<"\n";
+                    cout<<"\n=============================================================\n\n";
                 }
                 break;
             }
@@ -62,8 +57,7 @@ int main() {
                     cout<<"--- Data Customer\n";
                     showCustomerData(Customers, dataCust);
                 }else{
-                    cout<<"\n";
-                    cout<<"--- Nama/NIK Tidak Terdaftar!\n";
+                    cout<<"\n--- Nama/NIK tidak terdaftar!\n";
                 }
                 cout<<"\n";
                 break;
@@ -92,8 +86,7 @@ int main() {
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
                 if(custP == NULL){ // or if(getCustomer(Customers, dataCust) != NULL){...}
-                    cout<<"\n";
-                    cout<<"--- Data Customer Tidak Ditemukan!\n";
+                    cout<<"\n--- Data Customer tidak ditemukan\n";
                 }else{
                     cout<<"\n";
                     cout<<"--- Customer Ditemukan!\n\n";
@@ -128,19 +121,16 @@ int main() {
                     cin>>dataCred.creditID;
                     adrCredit credP = getCredit(Credits, dataCred);
                     if(credP != NULL){
-                        cout<<"\n";
-                        cout<<"--- Data Kredit Sudah Ada Dalam List!\n";
+                        cout<<"\n--- Data Kredit sudah ada dalam List!\n";
                     }else{
                         addCreditToCustomer(Credits, Customers, dataCred, dataCust);
-                        cout<<"\n";
-                        cout<<"--- Kartu Kredit Berhasil Ditambahkan!\n";
+                        cout<<"\n--- Kartu Kredit Berhasil Ditambahkan!\n";
                     }
                 }else{
-                    cout<<"\n";
-                    cout<<"--- Data Customer Tidak Ditemukan!\n";
+                    cout<<"\n--- Data Customer Tidak Ditemukan!\n";
                 }
                 cout<<"\n";
-            break;
+                break;
             }
             case 6: { // Menghapus kartu kredit dari customer X [done] [clean]
                 dataCustomer dataCust;
@@ -155,8 +145,7 @@ int main() {
                 if(custP != NULL){
                     deleteAllCreditInCustomer(Credits, Customers, dataCust);
                 }else{
-                    cout<<"\n";
-                    cout<<"--- Customer Tidak Terdaftar!\n";
+                    cout<<"\n--- Customer Tidak Terdaftar!\n";
                 }
                 break;
                 cout<<"\n";
@@ -176,77 +165,67 @@ int main() {
                 break;
             }
             case 8: { // Mencari kartu kredit Y dari customer X [done] [clean]
+                dataCredit dataCred;
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"\n";
                 cout<<"\t\t\t======[[ 8. Mencari kartu kredit Y dari customer X ]]======\n\n";
-                dataCredit dataCred;
-                dataCustomer dataCust;
                 cout<<"--- Masukkan Nama\t\t\t: ";
                 cin>>dataCust.name;
                 cout<<"--- Masukkan NIK\t\t\t: ";
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
                 if(custP != NULL){ // or if(getCustomer(Customers, dataCust) != NULL){...}
-                    cout<<"\n";
-                    cout<<"--- Data Customer Berhasil Ditemukan!\n";
-                    cout<<"\n";
-                    cout<<"--- Masukkan Nama Kredit\t\t: ";
+                    cout<<"\n--- Data Customer berhasil ditemukan!\n";
+                    cout<<"\n--- Masukkan Nama Kredit\t\t: ";
                     cin>>dataCred.creditName;
                     cout<<"--- Masukkan Nomor Rekening\t\t: ";
                     cin>>dataCred.creditID;
                     credP = getCredit(Credits, dataCred);
                     if(credP != NULL && child(credP) == custP){
-                        cout<<"\n";
-                        cout<<"--- Data Customer Dengan Kredit "<<dataCred.creditName
-                        <<" Dan Nomor Rekening "<<dataCred.creditID<<" : \n";
+                        cout<<"\n--- Data Customer dengan Kredit "<<dataCred.creditName
+                        <<" dan Nomor Rekening "<<dataCred.creditID<<" : \n";
                         showCustomerData(Customers, dataCust);
                     }else{
-                        cout<<"\n";
-                        cout<<"--- Data Kredit Tidak Ditemukan!";
-                        cout<<"\n";
+                        cout<<"\n--- Data Kredit tidak ditemukan!\n";
                     }
                 }else{
-                    cout<<"\n";
-                    cout<<"--- Data Customer Tidak Ditemukan!\n";
+                    cout<<"\n--- Data Customer tidak ditemukan!\n";
                 }
                 cout<<"\n";
                 break;
             }
             case 9: { // Membuat relasi antara customer X dan kartu kredit Y [done] [clean]
+                dataCredit dataCred;
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"\n";
                 cout<<"\t\t\t======[[ 9. Membuat relasi antara customer X dan kartu kredit Y ]]======\n\n";
-                dataCredit dataCred;
-                dataCustomer dataCust;
                 cout<<"--- Masukkan Nama\t\t\t: ";
                 cin>>dataCust.name;
                 cout<<"--- Masukkan NIK\t\t\t: ";
                 cin>>dataCust.NIK;
                 custP = getCustomer(Customers, dataCust);
                 if(custP != NULL){ // or if(getCustomer(Customers, dataCust) != NULL){...}
-                    cout<<"\n";
-                    cout<<"--- Nama Customer Berhasil Ditemukan!\n";
-                    cout<<"\n";
-                    cout<<"--- Masukkan Nama Kredit\t\t: ";
+                    cout<<"\n--- Nama Customer berhasil ditemukan!\n";
+                    cout<<"\n--- Masukkan Nama Kredit\t\t: ";
                     cin>>dataCred.creditName;
                     cout<<"--- Masukan Nomor Rekening\t\t: ";
                     cin>>dataCred.creditID;
                     connectCreditToCustomer(Credits, Customers, dataCred, dataCust);
-                    cout<<"\n";
-                    cout<<"--- Berhasil Menghubungkan Kartu Kredit Dengan Customer!\n";
+                    cout<<"\n--- Berhasil menghubungkan Kartu Kredit dengan Customer!\n";
                 }else{
-                    cout<<"\n";
-                    cout<<"--- Data Customer Tidak Ditemukan!\n";
+                    cout<<"\n--- Data Customer tidak ditemukan!\n";
                 }
                 cout<<"\n";
                 break;
             }
             case 10: { // Menghapus relasi antara customer X dan kartu kredit Y
+                dataCredit dataCred;
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"\n";
                 cout<<"\t\t\t======[[ 10. Menghapus relasi antara customer X dan kartu kredit Y ]]======\n\n";
-                dataCredit dataCred;
-                dataCustomer dataCust;
                 cout<<"--- Masukkan Nama\t\t\t: ";
                 cin>>dataCust.name;
                 cout<<"--- Masukkan NIK\t\t\t: ";
@@ -255,12 +234,9 @@ int main() {
                 if(custP != NULL){ // // or if(getCustomer(Customers, dataCust) != NULL){...}
                     cout<<"\n";
                     if(data(custP).totalCredits > 0){
-                        cout<<"===============================================\n";
-                        cout<<"\n";
+                        cout<<"===============================================\n\n";
                         showCustomerCredit(Credits, Customers, dataCust);
-                         cout<<"\n";
-                        cout<<"===============================================\n";
-                        cout<<"\n";
+                        cout<<"\n===============================================\n\n";
                         cout<<"--- Masukkkan Data Credit Yang Ingin Dihapus\n";
                         cout<<"--- Nama kredit\t\t\t\t: ";
                         cin>>dataCred.creditName;
@@ -268,20 +244,16 @@ int main() {
                         cin>>dataCred.creditID;
                         credP = getCredit(Credits, dataCred);
                         if(credP == NULL){
-                            cout<<"\n";
-                            cout<<"--- Data Kredit Tidak Ditemukan/Tidak Terdaftar!\n";
+                            cout<<"\n--- Data Kredit tidak ditemukan/tidak terdaftar!\n";
                         }else{
                             disconnectCreditAndCustomer(Credits, Customers, dataCred, dataCust);
-                            cout<<"\n";
-                            cout<<"--- Berhasil Memutuskan Hubungan Antara Kartu Kredit Dengan Customer\n";
+                            cout<<"\n--- Berhasil memutuskan hubungan antara Kartu Kredit dengan Customer\n";
                         }
                     }else{
-                        cout<<"\n";
-                        cout<<"--- Customer Tidak Memiliki Kartu Kredit!\n";
+                        cout<<"\n--- Customer tidak memiliki Kartu Kredit!\n";
                     }
                 }else{
-                    cout<<"\n";
-                    cout<<"--- Data Customer Tidak Ditemukan!\n";
+                    cout<<"\n--- Data Customer tidak ditemukan!\n";
                 }
                 cout<<"\n";
                 break;
@@ -295,27 +267,24 @@ int main() {
                 break;
             }
             case 12: { // Mencari nama customer dari kartu kredit Y
+                dataCredit dataCred;
+                dataCustomer dataCust;
                 system("cls");
                 cout<<"\n";
                 cout<<"\t\t\t======[[ 12. Mencari nama customer dari kartu kredit Y ]]======\n\n";
-                dataCredit dataCred;
-                dataCustomer dataCust;
                 cout<<"--- Masukkan Nama\t\t: ";
                 cin>>dataCred.creditName;
                 cout<<"--- Masukkan Nomor Rekening\t: ";
                 cin>>dataCred.creditID;
                 credP = getCredit(Credits, dataCred);
                 if(credP == NULL){ // or if(getCredit(Credits, dataCred) != NULL){...}
-                    cout<<"\n";
-                    cout<<"-- Data Kredit Tidak Ditemukan/Tidak Terdaftar\n";
+                        cout<<"\n--- Data Kredit tidak ditemukan/tidak terdaftar\n";
                 }else{
                     custP = getCustomerFromCredit(Credits, Customers, dataCred);
                     if(custP == NULL){
-                        cout<<"\n";
-                        cout<<"--- Kartu Kredit Ini Tidak Memiliki Relasi Ke Customer\n";
+                        cout<<"\n--- Kartu Kredit ini tidak memiliki relasi ke Customer\n";
                     }else{
-                        cout<<"\n";
-                        cout<<"--- Data Customer\n";
+                        cout<<"\n--- Data Customer\n";
                         showCustomerData(Customers, data(custP));
                     }  
                 }
