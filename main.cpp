@@ -212,8 +212,8 @@ int main() {
                     cin>>dataCred.creditName;
                     cout<<"--- Masukan Nomor Rekening\t\t: ";
                     cin>>dataCred.creditID;
+                    credP = getCredit(Credits, dataCred);
                     connectCreditToCustomer(Credits, Customers, dataCred, dataCust);
-                    cout<<"\n--- Berhasil menghubungkan Kartu Kredit dengan Customer!\n";
                 }else{
                     cout<<"\n--- Data Customer tidak ditemukan!\n";
                 }
@@ -272,7 +272,7 @@ int main() {
                 system("cls");
                 cout<<"\n";
                 cout<<"\t\t\t======[[ 12. Mencari nama customer dari kartu kredit Y ]]======\n\n";
-                cout<<"--- Masukkan Nama\t\t: ";
+                cout<<"--- Masukkan Nama Kredit\t\t: ";
                 cin>>dataCred.creditName;
                 cout<<"--- Masukkan Nomor Rekening\t: ";
                 cin>>dataCred.creditID;

@@ -148,13 +148,20 @@ void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataC
         insertLastCredit(Credits, thisCredit);
         ++data(foundCustuomer).totalCredits;
         child(thisCredit) = foundCustuomer;
+        cout<<"\n--- Berhasil menghubungkan Kartu Kredit dengan Customer!\n";
     }else if(child(foundCredit) != NULL && foundCustuomer != NULL){
-        --data(child(foundCredit)).totalCredits;
-        child(foundCredit) = foundCustuomer;
-        ++data(foundCustuomer).totalCredits;
+        if(child(foundCredit) == foundCustuomer){
+            cout<<"--- Kartu Kredit Customer sudah terdaftar\n";
+        }else{
+            --data(child(foundCredit)).totalCredits;
+            child(foundCredit) = foundCustuomer;
+            ++data(foundCustuomer).totalCredits;
+            cout<<"\n--- Berhasil menghubungkan Kartu Kredit dengan Customer!\n";
+        }
     }else if(child(foundCredit) == NULL){
         child(foundCredit) = foundCustuomer;
         ++data(foundCustuomer).totalCredits;
+        cout<<"\n--- Berhasil menghubungkan Kartu Kredit dengan Customer!\n";
     }else{
         cout<<"--- Customer tidak terdaftar\n";
     }
