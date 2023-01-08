@@ -143,8 +143,7 @@ void connectCreditToCustomer(listCredit &Credits, listCustomer &Customers, dataC
     adrCredit foundCredit = getCredit(Credits, dataCred);
     adrCustomer foundCustuomer = getCustomer(Customers, dataCust);
     if(foundCredit == NULL && foundCustuomer != NULL){
-        cout<<"\n";
-        cout<<"--- Data Kartu Kredit Belum Terdaftar!\n    Menambahkan Data Kartu Kredit Baru : SUCCESS\n";
+        cout<<"\n--- Data Kartu Kredit belum terdaftar!\n    Menambahkan Data Kartu Kredit baru : SUCCESS\n";
         adrCredit thisCredit = createElementCredit(Credits, dataCred);
         insertLastCredit(Credits, thisCredit);
         ++data(foundCustuomer).totalCredits;

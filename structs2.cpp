@@ -119,7 +119,7 @@ void showCustomerCredit(listCredit &Credits, listCustomer &Customers, dataCustom
             if(child(thisCredit) == thisCustomer){
                 counter++;
                 cout<<"--- Nama Kredit\t\t\t: "<<data(thisCredit).creditName<<"\n";
-                cout<<"--- Nomor Rekening\t\t\t: "<<data(thisCredit).creditID<<"\n";
+                cout<<"--- Nomor Rekening\t\t: "<<data(thisCredit).creditID<<"\n";
             }
             thisCredit = nextCredit(thisCredit);
         }
@@ -146,7 +146,7 @@ void deleteCustomer(listCredit &Credits, listCustomer &Customers, dataCustomer d
         }else{
             deleteAfterCustomer(Customers, deletedCreditP, data(thisCustomer));
         }
-        cout<<"-- Berhasil menghapus data customer\n";
+        cout<<"--- Berhasil menghapus data customer\n";
     }
 } // (3)
 
