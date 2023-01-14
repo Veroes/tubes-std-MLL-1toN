@@ -181,7 +181,7 @@ void showHighestCustomerCredits(listCredit &Credits, listCustomer &Customers){ /
         }while(thisCustomer != first(Customers));
 
         if(highestCredits == 0){
-            cout<<"--- Tidak ada Kartu Kredit yang terdaftar!\n";
+            cout<<"--- Tidak ada Kartu Kredit yang terdaftar dengan customer!\n";
         }else{
             cout<<"--- Total Kredit Tertinggi : "<<highestCredits<<endl;
             cout<<"\n--- Data Customer : "<<endl;
