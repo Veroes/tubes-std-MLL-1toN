@@ -173,7 +173,12 @@ void deleteAllCreditInCustomer(listCredit &Credits, listCustomer &Customers, dat
     adrCredit credP;
     adrCredit foundCredit = getCreditFromCustomer(Credits, Customers, dataCust);
     adrCustomer foundCustomer = getCustomer(Customers, dataCust);
-    while(foundCredit != NULL){
+    if(foundCredit == NULL && foundCustomer != NULL){
+        cout<<"\n--- Tidak Ada Kartu Kredit Yang Terdaftar!\n";
+    }else if(foundCustomer == NULL){
+        cout<<"\n--- Customer Tidak Terdaftar!\n";
+    }else{
+        while(foundCredit != NULL){
             disconnectCreditAndCustomer(Credits, Customers, data(foundCredit), dataCust);
             if(foundCredit == first(Credits)){
                 deleteFirstCredit(Credits, credP);
@@ -184,11 +189,6 @@ void deleteAllCreditInCustomer(listCredit &Credits, listCustomer &Customers, dat
             }
             foundCredit = getCreditFromCustomer(Credits, Customers, dataCust);
         }
-    if(foundCustomer == NULL){
-        cout<<"\n--- Customer Tidak Terdaftar!\n";
-    }else if(foundCredit == NULL && foundCustomer != NULL){
-        cout<<"\n--- Tidak Ada Kartu Kredit Yang Terdaftar!\n";
-    }else{
         cout<<"\n--- Berhasil Menghapus Kartu Kredit!\n";
     }
 } // 6
