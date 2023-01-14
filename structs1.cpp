@@ -186,8 +186,7 @@ void deleteAllCreditInCustomer(listCredit &Credits, listCustomer &Customers, dat
         }
     if(foundCustomer == NULL){
         cout<<"\n--- Customer Tidak Terdaftar!\n";
-        
-    }else if(foundCredit == NULL){
+    }else if(foundCredit == NULL && foundCustomer != NULL){
         cout<<"\n--- Tidak Ada Kartu Kredit Yang Terdaftar!\n";
     }else{
         cout<<"\n--- Berhasil Menghapus Kartu Kredit!\n";
