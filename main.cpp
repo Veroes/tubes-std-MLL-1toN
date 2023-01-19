@@ -309,6 +309,5 @@ int main() {
             command = 0;
         }
     }
-    cout<<"Terima kasih :)\nCreated by : Arifki Ilham and Rifqah Amaliyah [Tugas Besar STD]";
     return 0;
 }
